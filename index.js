@@ -52,13 +52,16 @@ class GigaChat {
                     data.append('scope', this.scopeForCorporation);
                 }
                 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-                const responce = yield axios_1.default.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data, {
+                const res = yield fetch('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
+                    method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${this.apiKey}`,
                         'RqUID': requestUID,
                         'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                    },
+                    body: data
                 });
+                const responce = yield res.json();
                 this.authorization = responce.data.access_token;
                 return responce.data;
             }
