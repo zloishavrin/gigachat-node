@@ -4,7 +4,8 @@
   "description": "The unoffical Node.js/Typescript library for the GigaChat API",
   "main": "index.js",
   "type": "commonjs",
-  "repository": "zloishavrin",
+  "repository": "github:zloishavrin/gigachat-node",
+  "private":"false",
   "scripts": {
     "build": "tsc"
   },
