@@ -1,13 +1,16 @@
 declare class GigaChat {
     private authorization;
-    private apiKey;
-    url: string;
+    private clientSecretKey;
+    private isIgnoreTSL;
+    private isPersonal;
+    private url;
+    private urlAuth;
     private scopeForPersonal;
     private scopeForCorporation;
-    constructor(apiKey: string);
+    constructor(clientSecretKey: string, isIgnoreTSL?: boolean, isPersonal?: boolean);
     private get;
     private post;
-    createToken(isPersonal: boolean): Promise<any>;
+    createToken(): Promise<any>;
     completion(data: any): Promise<any>;
     allModels(): Promise<any>;
     model(modelName: string): Promise<any>;
