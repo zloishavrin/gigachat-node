@@ -51,6 +51,7 @@ class GigaChat {
                 else {
                     data.append('scope', this.scopeForCorporation);
                 }
+                process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
                 const responce = yield axios_1.default.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data, {
                     headers: {
                         'Authorization': `Bearer ${this.apiKey}`,
