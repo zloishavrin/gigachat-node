@@ -35,6 +35,7 @@ class GigaChat {
     }
 
     public async createToken(isPersonal: boolean): Promise<any> {
+        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
         try {
             const requestUID = uuidv4();
             const data = new URLSearchParams();
