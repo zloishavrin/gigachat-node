@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 const uuid_1 = require("uuid");
+const https_1 = require("https");
 class GigaChat {
     constructor(apiKey) {
         this.url = 'https://gigachat.devices.sberbank.ru/api/v1';
@@ -54,7 +55,10 @@ class GigaChat {
                         'Authorization': `Bearer ${this.apiKey}`,
                         'RqUID': requestUID,
                         'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                    },
+                    httpsAgent: new https_1.Agent({
+                        rejectUnauthorized: false
+                    })
                 });
                 this.authorization = responce.data.access_token;
                 return responce.data;

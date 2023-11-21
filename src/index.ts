@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { Agent } from 'https';
 
 class GigaChat {
 
@@ -34,6 +35,7 @@ class GigaChat {
 
     public async createToken(isPersonal: boolean): Promise<any> {
         try {
+
             const requestUID = uuidv4();
             const data = new URLSearchParams();
             
@@ -49,7 +51,10 @@ class GigaChat {
                     'Authorization': `Bearer ${this.apiKey}`,
                     'RqUID': requestUID,
                     'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                },
+                httpsAgent: new Agent({
+                    rejectUnauthorized: false
+                })
             })
             this.authorization = responce.data.access_token;
             return responce.data;
