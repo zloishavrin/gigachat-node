@@ -5,7 +5,6 @@
   "main": "index.js",
   "type": "commonjs",
   "repository": "github:zloishavrin/gigachat-node",
-  "private":"false",
   "scripts": {
     "build": "tsc"
   },
