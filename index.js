@@ -10,17 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
+const uuid_1 = require("uuid");
 class GigaChat {
     constructor(apiKey) {
-        this.apiKey = apiKey;
         this.url = 'https://gigachat.devices.sberbank.ru/api/v1';
+        this.scopeForPersonal = 'GIGACHAT_API_PERS';
+        this.scopeForCorporation = 'GIGACHAT_API_CORP';
+        this.apiKey = apiKey;
     }
     get(path) {
         return __awaiter(this, void 0, void 0, function* () {
             process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             const responce = yield axios_1.default.get(`${this.url}${path}`, {
                 headers: {
-                    Authorization: `Bearer ${this.apiKey}`,
+                    Authorization: `Bearer ${this.authorization}`,
                 }
             });
             return responce;
@@ -31,10 +34,37 @@ class GigaChat {
             process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             const response = yield axios_1.default.post(`${this.url}${path}`, data, {
                 headers: {
-                    Authorization: `Bearer ${this.apiKey}`,
+                    Authorization: `Bearer ${this.authorization}`,
                 },
             });
             return response;
+        });
+    }
+    createToken(isPersonal) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const requestUID = (0, uuid_1.v4)();
+                const data = new URLSearchParams();
+                if (isPersonal) {
+                    data.append('scope', this.scopeForPersonal);
+                }
+                else {
+                    data.append('scope', this.scopeForCorporation);
+                }
+                const responce = yield axios_1.default.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data, {
+                    headers: {
+                        'Authorization': `Bearer ${this.apiKey}`,
+                        'RqUID': requestUID,
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+                this.authorization = responce.data.access_token;
+                return responce.data;
+            }
+            catch (error) {
+                console.error('GigaChat Error (create authorization token):\n', error);
+                throw error;
+            }
         });
     }
     completion(data) {
