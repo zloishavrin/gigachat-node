@@ -15,7 +15,6 @@ class GigaChat {
     }
 
     private async get(path: string): Promise<any> {
-        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
         const responce = await axios.get(`${this.url}${path}`, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
@@ -25,7 +24,6 @@ class GigaChat {
     }
 
     private async post(path: string, data: any): Promise<any> {
-        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
         const response = await axios.post(`${this.url}${path}`, data, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
@@ -45,21 +43,14 @@ class GigaChat {
             else {
                 data.append('scope', this.scopeForCorporation);
             }
-        
-            process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
-            const res = await fetch('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
-                method: 'POST',
+            const responce = await axios.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data, {
                 headers: {
                     'Authorization': `Bearer ${this.apiKey}`,
                     'RqUID': requestUID,
                     'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: data
+                }
             })
-
-            const responce = await res.json();
-
             this.authorization = responce.data.access_token;
             return responce.data;
         }
