@@ -10,6 +10,7 @@ class GigaChat {
     }
 
     private async get(path: string): Promise<any> {
+        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
         const responce = await axios.get(`${this.url}${path}`, {
             headers: {
                 Authorization: `Bearer ${this.apiKey}`,
@@ -19,6 +20,7 @@ class GigaChat {
     }
 
     private async post(path: string, data: any): Promise<any> {
+        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
         const response = await axios.post(`${this.url}${path}`, data, {
             headers: {
                 Authorization: `Bearer ${this.apiKey}`,

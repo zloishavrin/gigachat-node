@@ -17,6 +17,7 @@ class GigaChat {
     }
     get(path) {
         return __awaiter(this, void 0, void 0, function* () {
+            process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             const responce = yield axios_1.default.get(`${this.url}${path}`, {
                 headers: {
                     Authorization: `Bearer ${this.apiKey}`,
@@ -27,6 +28,7 @@ class GigaChat {
     }
     post(path, data) {
         return __awaiter(this, void 0, void 0, function* () {
+            process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             const response = yield axios_1.default.post(`${this.url}${path}`, data, {
                 headers: {
                     Authorization: `Bearer ${this.apiKey}`,
