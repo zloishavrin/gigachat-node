@@ -5,21 +5,32 @@ import { Agent } from 'https';
 class GigaChat {
 
     private authorization: string;
-    private apiKey: string;
-    public url: string = 'https://gigachat.devices.sberbank.ru/api/v1';
+    private clientSecretKey: string;
 
+    private isIgnoreTSL: boolean;
+    private isPersonal: boolean;
+
+    private url: string = 'https://gigachat.devices.sberbank.ru/api/v1';
+    private urlAuth: string = 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth';
     private scopeForPersonal: string = 'GIGACHAT_API_PERS';
     private scopeForCorporation: string = 'GIGACHAT_API_CORP';
 
-    constructor(apiKey: string) {
-        this.apiKey = apiKey;
+    constructor(clientSecretKey: string, isIgnoreTSL: boolean = true, isPersonal: boolean = true) {
+        this.clientSecretKey = clientSecretKey;
+        this.isIgnoreTSL = isIgnoreTSL;
+        this.isPersonal = isPersonal;
+        
+        this.createToken();
     }
 
     private async get(path: string): Promise<any> {
         const responce = await axios.get(`${this.url}${path}`, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
-            }
+            },
+            httpsAgent: new Agent({
+                rejectUnauthorized: !this.isIgnoreTSL
+            })
         })
         return responce;
     }
@@ -29,31 +40,33 @@ class GigaChat {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
             },
+            httpsAgent: new Agent({
+                rejectUnauthorized: !this.isIgnoreTSL
+            })
         });
         return response;
     }
 
-    public async createToken(isPersonal: boolean): Promise<any> {
+    public async createToken(): Promise<any> {
         try {
-
             const requestUID = uuidv4();
             const data = new URLSearchParams();
             
-            if(isPersonal) {
+            if(this.isPersonal) {
                 data.append('scope', this.scopeForPersonal);
             }
             else {
                 data.append('scope', this.scopeForCorporation);
             }
 
-            const responce = await axios.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data, {
+            const responce = await axios.post(this.urlAuth, data, {
                 headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Authorization': `Bearer ${this.clientSecretKey}`,
                     'RqUID': requestUID,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 httpsAgent: new Agent({
-                    rejectUnauthorized: false
+                    rejectUnauthorized: !this.isIgnoreTSL
                 })
             })
             this.authorization = responce.data.access_token;
