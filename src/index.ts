@@ -35,7 +35,6 @@ class GigaChat {
     }
 
     public async createToken(isPersonal: boolean): Promise<any> {
-        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
         try {
             const requestUID = uuidv4();
             const data = new URLSearchParams();
@@ -46,7 +45,8 @@ class GigaChat {
             else {
                 data.append('scope', this.scopeForCorporation);
             }
-            
+        
+            process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             const responce = await axios.post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', data, {
                 headers: {
                     'Authorization': `Bearer ${this.apiKey}`,
