@@ -6,6 +6,12 @@
 
 ## Использование
 
+### Установка
+
+```bash
+npm i gigachat-node
+```
+
 ### Начало работы
 
 Создание экземпляра класса и получение токена доступа к API [(подробнее в документации)](https://developers.sber.ru/docs/ru/gigachat/api/authorization).
