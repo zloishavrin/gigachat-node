@@ -1,5 +1,5 @@
 {
-  "name": "gigachat",
+  "name": "gigachat-node",
   "version": "1.0.0",
   "description": "The unoffical Node.js/Typescript library for the GigaChat API",
   "main": "index.js",
