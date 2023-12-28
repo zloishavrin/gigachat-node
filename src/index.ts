@@ -4,23 +4,22 @@ import { Agent } from 'https';
 
 class GigaChat {
 
-    private authorization: string;
+    public authorization: string;
     private clientSecretKey: string;
-
     private isIgnoreTSL: boolean;
     private isPersonal: boolean;
+    private autoRefreshToken: boolean;
 
     private url: string = 'https://gigachat.devices.sberbank.ru/api/v1';
     private urlAuth: string = 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth';
     private scopeForPersonal: string = 'GIGACHAT_API_PERS';
     private scopeForCorporation: string = 'GIGACHAT_API_CORP';
 
-    constructor(clientSecretKey: string, isIgnoreTSL: boolean = true, isPersonal: boolean = true) {
+    constructor(clientSecretKey: string, isIgnoreTSL: boolean = true, isPersonal: boolean = true, autoRefreshToken: boolean = true) {
         this.clientSecretKey = clientSecretKey;
         this.isIgnoreTSL = isIgnoreTSL;
         this.isPersonal = isPersonal;
-        
-        this.createToken();
+        this.autoRefreshToken = autoRefreshToken;
     }
 
     private async get(path: string): Promise<any> {
@@ -35,14 +34,15 @@ class GigaChat {
         return responce;
     }
 
-    private async post(path: string, data: any): Promise<any> {
+    private async post(path: string, data: any, stream: boolean = false): Promise<any> {
         const response = await axios.post(`${this.url}${path}`, data, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
             },
             httpsAgent: new Agent({
                 rejectUnauthorized: !this.isIgnoreTSL
-            })
+            }),
+            responseType: stream ? 'stream' : 'json'
         });
         return response;
     }
@@ -85,8 +85,46 @@ class GigaChat {
             return response.data;
         } 
         catch(error) {
-            console.error("GigaChat Error (create completion):\n", error);
-            throw error;
+            if(this.autoRefreshToken && error.message === 'Token has expired'){
+                try {
+                    await this.createToken();
+                    const responce = await this.post(path, data);
+                    return responce.data;
+                }
+                catch(error) {
+                    console.error("GigaChat Error (create completion):\n", error);
+                    throw error;
+                }
+            }
+            else {
+                console.error("GigaChat Error (create completion):\n", error);
+                throw error;
+            }
+        }
+    }
+
+    public async completionStream(data: any): Promise<any> {
+        const path = '/chat/completions';
+        try {
+            const response = await this.post(path, data, true);
+            return response.data;
+        } 
+        catch(error) {
+            if(this.autoRefreshToken && error.message === 'Token has expired'){
+                try {
+                    await this.createToken();
+                    const responce = await this.post(path, data);
+                    return responce.data;
+                }
+                catch(error) {
+                    console.error("GigaChat Error (create completion):\n", error);
+                    throw error;
+                }
+            }
+            else {
+                console.error("GigaChat Error (create completion):\n", error);
+                throw error;
+            }
         }
     }
 
@@ -97,8 +135,21 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            console.error("GigaChat Error (get all models):\n", error);
-            throw error;
+            if(this.autoRefreshToken && error.message === 'Token has expired') {
+                try {
+                    await this.createToken();
+                    const responce = await this.get(path);
+                    return responce.data;
+                }
+                catch(error) {
+                    console.error("GigaChat Error (get all models):\n", error);
+                    throw error;
+                }
+            }
+            else {
+                console.error("GigaChat Error (get all models):\n", error);
+                throw error;
+            }
         }
     }
 
@@ -109,8 +160,21 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            console.error(`GigaChat Error (get model ${modelName}):\n`, error);
-            throw error;
+            if(this.autoRefreshToken && error.message === 'Token has expired') {
+                try {
+                    await this.createToken();
+                    const responce = await this.get(path);
+                    return responce.data;
+                }
+                catch(error) {
+                    console.error(`GigaChat Error (get model ${modelName}):\n`, error);
+                    throw error;
+                }
+            }
+            else {
+                console.error(`GigaChat Error (get model ${modelName}):\n`, error);
+                throw error;
+            }
         }
     }
 }
