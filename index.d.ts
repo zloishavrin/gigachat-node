@@ -11,6 +11,7 @@ declare class GigaChat {
     constructor(clientSecretKey: string, isIgnoreTSL?: boolean, isPersonal?: boolean, autoRefreshToken?: boolean);
     private get;
     private post;
+    private handlingError;
     createToken(): Promise<any>;
     completion(data: any): Promise<any>;
     completionStream(data: any): Promise<any>;

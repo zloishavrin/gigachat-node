@@ -50,6 +50,25 @@ class GigaChat {
             return response;
         });
     }
+    handlingError(error, currentFunction) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.autoRefreshToken && error.response.data.message === 'Token has expired') {
+                try {
+                    yield this.createToken();
+                    const responce = yield currentFunction();
+                    return responce.data;
+                }
+                catch (error) {
+                    console.error("GigaChat Error (create completion):\n", error);
+                    throw error;
+                }
+            }
+            else {
+                console.error("GigaChat Error (create completion):\n", error);
+                throw error;
+            }
+        });
+    }
     createToken() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -88,21 +107,9 @@ class GigaChat {
                 return response.data;
             }
             catch (error) {
-                if (this.autoRefreshToken && error.message === 'Token has expired') {
-                    try {
-                        yield this.createToken();
-                        const responce = yield this.post(path, data);
-                        return responce.data;
-                    }
-                    catch (error) {
-                        console.error("GigaChat Error (create completion):\n", error);
-                        throw error;
-                    }
-                }
-                else {
-                    console.error("GigaChat Error (create completion):\n", error);
-                    throw error;
-                }
+                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                    return yield this.post(path, data);
+                }));
             }
         });
     }
@@ -114,21 +121,9 @@ class GigaChat {
                 return response.data;
             }
             catch (error) {
-                if (this.autoRefreshToken && error.message === 'Token has expired') {
-                    try {
-                        yield this.createToken();
-                        const responce = yield this.post(path, data);
-                        return responce.data;
-                    }
-                    catch (error) {
-                        console.error("GigaChat Error (create completion):\n", error);
-                        throw error;
-                    }
-                }
-                else {
-                    console.error("GigaChat Error (create completion):\n", error);
-                    throw error;
-                }
+                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                    return yield this.post(path, data, true);
+                }));
             }
         });
     }
@@ -140,21 +135,9 @@ class GigaChat {
                 return responce.data;
             }
             catch (error) {
-                if (this.autoRefreshToken && error.message === 'Token has expired') {
-                    try {
-                        yield this.createToken();
-                        const responce = yield this.get(path);
-                        return responce.data;
-                    }
-                    catch (error) {
-                        console.error("GigaChat Error (get all models):\n", error);
-                        throw error;
-                    }
-                }
-                else {
-                    console.error("GigaChat Error (get all models):\n", error);
-                    throw error;
-                }
+                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                    return yield this.get(path);
+                }));
             }
         });
     }
@@ -166,21 +149,9 @@ class GigaChat {
                 return responce.data;
             }
             catch (error) {
-                if (this.autoRefreshToken && error.message === 'Token has expired') {
-                    try {
-                        yield this.createToken();
-                        const responce = yield this.get(path);
-                        return responce.data;
-                    }
-                    catch (error) {
-                        console.error(`GigaChat Error (get model ${modelName}):\n`, error);
-                        throw error;
-                    }
-                }
-                else {
-                    console.error(`GigaChat Error (get model ${modelName}):\n`, error);
-                    throw error;
-                }
+                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                    return yield this.get(path);
+                }));
             }
         });
     }

@@ -47,6 +47,24 @@ class GigaChat {
         return response;
     }
 
+    private async handlingError(error: any, currentFunction: any): Promise<any> {
+        if(this.autoRefreshToken && error.response.data.message === 'Token has expired'){
+            try {
+                await this.createToken();
+                const responce = await currentFunction();
+                return responce.data;
+            }
+            catch(error) {
+                console.error("GigaChat Error (create completion):\n", error);
+                throw error;
+            }
+        }
+        else {
+            console.error("GigaChat Error (create completion):\n", error);
+            throw error;
+        }
+    }
+
     public async createToken(): Promise<any> {
         try {
             const requestUID = uuidv4();
@@ -85,21 +103,9 @@ class GigaChat {
             return response.data;
         } 
         catch(error) {
-            if(this.autoRefreshToken && error.message === 'Token has expired'){
-                try {
-                    await this.createToken();
-                    const responce = await this.post(path, data);
-                    return responce.data;
-                }
-                catch(error) {
-                    console.error("GigaChat Error (create completion):\n", error);
-                    throw error;
-                }
-            }
-            else {
-                console.error("GigaChat Error (create completion):\n", error);
-                throw error;
-            }
+            await this.handlingError(error, async () => {
+                return await this.post(path, data);
+            })
         }
     }
 
@@ -110,21 +116,9 @@ class GigaChat {
             return response.data;
         } 
         catch(error) {
-            if(this.autoRefreshToken && error.message === 'Token has expired'){
-                try {
-                    await this.createToken();
-                    const responce = await this.post(path, data);
-                    return responce.data;
-                }
-                catch(error) {
-                    console.error("GigaChat Error (create completion):\n", error);
-                    throw error;
-                }
-            }
-            else {
-                console.error("GigaChat Error (create completion):\n", error);
-                throw error;
-            }
+            await this.handlingError(error, async () => {
+                return await this.post(path, data, true);
+            })
         }
     }
 
@@ -135,21 +129,9 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            if(this.autoRefreshToken && error.message === 'Token has expired') {
-                try {
-                    await this.createToken();
-                    const responce = await this.get(path);
-                    return responce.data;
-                }
-                catch(error) {
-                    console.error("GigaChat Error (get all models):\n", error);
-                    throw error;
-                }
-            }
-            else {
-                console.error("GigaChat Error (get all models):\n", error);
-                throw error;
-            }
+            await this.handlingError(error, async () => {
+                return await this.get(path);
+            })
         }
     }
 
@@ -160,21 +142,9 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            if(this.autoRefreshToken && error.message === 'Token has expired') {
-                try {
-                    await this.createToken();
-                    const responce = await this.get(path);
-                    return responce.data;
-                }
-                catch(error) {
-                    console.error(`GigaChat Error (get model ${modelName}):\n`, error);
-                    throw error;
-                }
-            }
-            else {
-                console.error(`GigaChat Error (get model ${modelName}):\n`, error);
-                throw error;
-            }
+            await this.handlingError(error, async () => {
+                return await this.get(path);
+            })
         }
     }
 }
