@@ -103,7 +103,7 @@ class GigaChat {
             return response.data;
         } 
         catch(error) {
-            await this.handlingError(error, async () => {
+            return await this.handlingError(error, async () => {
                 return await this.post(path, data);
             })
         }
@@ -116,7 +116,7 @@ class GigaChat {
             return response.data;
         } 
         catch(error) {
-            await this.handlingError(error, async () => {
+            return await this.handlingError(error, async () => {
                 return await this.post(path, data, true);
             })
         }
@@ -129,7 +129,7 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            await this.handlingError(error, async () => {
+            return await this.handlingError(error, async () => {
                 return await this.get(path);
             })
         }
@@ -142,7 +142,7 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            await this.handlingError(error, async () => {
+            return await this.handlingError(error, async () => {
                 return await this.get(path);
             })
         }

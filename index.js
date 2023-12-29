@@ -107,7 +107,7 @@ class GigaChat {
                 return response.data;
             }
             catch (error) {
-                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
                     return yield this.post(path, data);
                 }));
             }
@@ -121,7 +121,7 @@ class GigaChat {
                 return response.data;
             }
             catch (error) {
-                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
                     return yield this.post(path, data, true);
                 }));
             }
@@ -135,7 +135,7 @@ class GigaChat {
                 return responce.data;
             }
             catch (error) {
-                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
                     return yield this.get(path);
                 }));
             }
@@ -149,7 +149,7 @@ class GigaChat {
                 return responce.data;
             }
             catch (error) {
-                yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
                     return yield this.get(path);
                 }));
             }
