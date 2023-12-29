@@ -8,7 +8,11 @@
   "scripts": {
     "build": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "ai", 
+    "gigachat", 
+    "sber"
+  ],
   "author": "Nikita Shavrin",
   "license": "ISC",
   "dependencies": {
