@@ -95,6 +95,10 @@ stream.on('end', () => {
 })
 ```
 
+## Примеры работы
+
+* [Телеграм-бот с GigaChat API](https://github.com/zloishavrin/telegram-bot-gigachat)
+
 ## RoadMap
 
 | Задача | Статус |
