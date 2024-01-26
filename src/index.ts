@@ -1,25 +1,37 @@
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import { Agent } from 'https';
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { Agent } from "https";
+import * as fs from "fs";
+import { Readable } from "stream";
 
 class GigaChat {
 
-    public authorization: string;
+    public authorization: string | undefined;
+
     private clientSecretKey: string;
     private isIgnoreTSL: boolean;
     private isPersonal: boolean;
     private autoRefreshToken: boolean;
+    private imgOn: boolean;
+    private imgPath: string;
 
-    private url: string = 'https://gigachat.devices.sberbank.ru/api/v1';
-    private urlAuth: string = 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth';
-    private scopeForPersonal: string = 'GIGACHAT_API_PERS';
-    private scopeForCorporation: string = 'GIGACHAT_API_CORP';
+    private url: string = "https://gigachat.devices.sberbank.ru/api/v1";
+    private urlAuth: string = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth";
+    private scopeForPersonal: string = "GIGACHAT_API_PERS";
+    private scopeForCorporation: string = "GIGACHAT_API_CORP";
 
-    constructor(clientSecretKey: string, isIgnoreTSL: boolean = true, isPersonal: boolean = true, autoRefreshToken: boolean = true) {
+    constructor(clientSecretKey: string,
+        isIgnoreTSL: boolean = true,
+        isPersonal: boolean = true,
+        autoRefreshToken: boolean = true,
+        imgOn: boolean = true,
+        imgPath: string = ".") {
         this.clientSecretKey = clientSecretKey;
         this.isIgnoreTSL = isIgnoreTSL;
         this.isPersonal = isPersonal;
         this.autoRefreshToken = autoRefreshToken;
+        this.imgOn = imgOn,
+        this.imgPath = imgPath
     }
 
     private async get(path: string): Promise<any> {
@@ -30,7 +42,7 @@ class GigaChat {
             httpsAgent: new Agent({
                 rejectUnauthorized: !this.isIgnoreTSL
             })
-        })
+        });
         return responce;
     }
 
@@ -42,26 +54,49 @@ class GigaChat {
             httpsAgent: new Agent({
                 rejectUnauthorized: !this.isIgnoreTSL
             }),
-            responseType: stream ? 'stream' : 'json'
+            responseType: stream ? "stream" : "json"
         });
         return response;
     }
 
+    private async getImage(imageId: string): Promise <any> {
+        const responce = await axios.get(`${this.url}/files/${imageId}/content`, {
+            headers: {
+                Authorization: `Bearer ${this.authorization}`,
+                Accept: "application/jpg"
+            },
+            httpsAgent: new Agent({
+                rejectUnauthorized: !this.isIgnoreTSL
+            }),
+            responseType: "stream"
+        });
+        return responce;
+    }
+
+    private extractImageSource(completionContent: string): string | null {
+        const imgTagRegex = /<img[^>]+src\s*=\s*['"]([^'"]+)['"][^>]*>/;
+        const match = completionContent.match(imgTagRegex);
+        if (match) {
+            return match[1];
+        } 
+        else {
+            return null;
+        }
+    }
+
     private async handlingError(error: any, currentFunction: any): Promise<any> {
-        if(this.autoRefreshToken && error.response.data.message === 'Token has expired'){
+        if(this.autoRefreshToken && error.response.data.message === "Token has expired"){
             try {
                 await this.createToken();
                 const responce = await currentFunction();
                 return responce.data;
             }
             catch(error) {
-                console.error("GigaChat Error (create completion):\n", error);
-                throw error;
+                throw new Error(`GigaChat Error (create completion):\n${error}`);
             }
         }
         else {
-            console.error("GigaChat Error (create completion):\n", error);
-            throw error;
+            throw new Error(error);
         }
     }
 
@@ -71,17 +106,17 @@ class GigaChat {
             const data = new URLSearchParams();
             
             if(this.isPersonal) {
-                data.append('scope', this.scopeForPersonal);
+                data.append("scope", this.scopeForPersonal);
             }
             else {
-                data.append('scope', this.scopeForCorporation);
+                data.append("scope", this.scopeForCorporation);
             }
 
             const responce = await axios.post(this.urlAuth, data, {
                 headers: {
-                    'Authorization': `Bearer ${this.clientSecretKey}`,
-                    'RqUID': requestUID,
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    "Authorization": `Bearer ${this.clientSecretKey}`,
+                    "RqUID": requestUID,
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
                 httpsAgent: new Agent({
                     rejectUnauthorized: !this.isIgnoreTSL
@@ -91,26 +126,61 @@ class GigaChat {
             return responce.data;
         }
         catch(error) {
-            console.error('GigaChat Error (create authorization token):\n', error);
-            throw error;
+            throw new Error(`GigaChat Error (create authorization token):\n${error}`);
         }
     }
 
     public async completion(data: any): Promise<any> {
-        const path = '/chat/completions';
+        const path = "/chat/completions";
         try {
             const response = await this.post(path, data);
-            return response.data;
-        } 
-        catch(error) {
+            const completionContent = response.data.choices[0].message.content;
+            if (this.imgOn) {
+                const imageId = this.extractImageSource(completionContent);
+                if (imageId) {
+                    try {
+                        const imagePath = `${this.imgPath}/${uuidv4()}.jpg`;
+                        const imageStream = fs.createWriteStream(imagePath);
+                        const transformStream = new Readable();
+                        transformStream._read = () => {};
+      
+                        const imageResponse = await this.getImage(imageId);
+      
+                        await new Promise<void>((resolve, reject) => {
+                            imageResponse.data.on("data", (chunk: any) => transformStream.push(chunk));
+                            imageResponse.data.on("end", () => {
+                                transformStream.push(null);
+                                transformStream.pipe(imageStream);
+                                transformStream.on("end", () => {
+                                    imageStream.end();
+                                    imageStream.on("finish", () => {
+                                        response.data.choices[0].message["image"] = imagePath;
+                                        resolve();
+                                    });
+                                });
+                            });
+                            imageResponse.data.on("error", reject);
+                        });
+      
+                        return response.data;
+                    } catch (error) {
+                        throw new Error(`Ошибка при сохранении файла: ${error}`);
+                    }
+                } else {
+                    return response.data;
+                }
+            } else {
+                return response.data;
+            }
+        } catch (error) {
             return await this.handlingError(error, async () => {
                 return await this.post(path, data);
-            })
+            });
         }
-    }
+    }      
 
     public async completionStream(data: any): Promise<any> {
-        const path = '/chat/completions';
+        const path = "/chat/completions";
         try {
             const response = await this.post(path, data, true);
             return response.data;
@@ -123,7 +193,7 @@ class GigaChat {
     }
 
     public async allModels(): Promise<any> {
-        const path = '/models';
+        const path = "/models";
         try {
             const responce = await this.get(path);
             return responce.data;
