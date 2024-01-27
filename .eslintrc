@@ -16,7 +16,7 @@
       "no-unused-vars": "warn",
       "quotes": ["error", "double"],
       "indent": ["error", 4, { "SwitchCase": 1 }],
-      "import-spacing": ["error", { "before": true, "after": true }]
+      "object-curly-spacing":["warn", "always"]
     }
   }
   

@@ -1,3 +1,11 @@
+/// <reference types="node" />
+import { Readable } from "stream";
+type StreamResponse = Readable;
+import { ICompletionRequest, ICompletionResponse } from "./interfaces/completion";
+import { IAllModelResponse, IModelResponse } from "./interfaces/model";
+import { ITokenResponse } from "./interfaces/token";
+import { IEmbeddingResponse } from "./interfaces/embedding";
+import { ISummarizeResponce } from "./interfaces/summarize";
 declare class GigaChat {
     authorization: string | undefined;
     private clientSecretKey;
@@ -16,10 +24,12 @@ declare class GigaChat {
     private getImage;
     private extractImageSource;
     private handlingError;
-    createToken(): Promise<any>;
-    completion(data: any): Promise<any>;
-    completionStream(data: any): Promise<any>;
-    allModels(): Promise<any>;
-    model(modelName: string): Promise<any>;
+    createToken(): Promise<ITokenResponse>;
+    completion(data: ICompletionRequest): Promise<ICompletionResponse>;
+    completionStream(data: ICompletionRequest): Promise<StreamResponse>;
+    allModels(): Promise<IAllModelResponse>;
+    model(modelName: string): Promise<IModelResponse>;
+    embedding(input: string[]): Promise<IEmbeddingResponse>;
+    summarize(model: string, input: string[]): Promise<ISummarizeResponce[]>;
 }
-export default GigaChat;
+export { GigaChat };

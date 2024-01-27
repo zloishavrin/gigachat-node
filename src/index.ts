@@ -1,8 +1,19 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { Agent } from "https";
 import * as fs from "fs";
 import { Readable } from "stream";
+type StreamResponse = Readable;
+// Interfaces
+import { 
+    ICompletionRequest, 
+    ICompletionResponse } from "./interfaces/completion";
+import { 
+    IAllModelResponse, 
+    IModelResponse } from "./interfaces/model";
+import { ITokenResponse } from "./interfaces/token";
+import { IEmbeddingResponse } from "./interfaces/embedding";
+import { ISummarizeResponce } from "./interfaces/summarize";
 
 class GigaChat {
 
@@ -34,7 +45,7 @@ class GigaChat {
         this.imgPath = imgPath
     }
 
-    private async get(path: string): Promise<any> {
+    private async get(path: string): Promise<AxiosResponse<any>> {
         const responce = await axios.get(`${this.url}${path}`, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
@@ -46,7 +57,7 @@ class GigaChat {
         return responce;
     }
 
-    private async post(path: string, data: any, stream: boolean = false): Promise<any> {
+    private async post(path: string, data: object, stream: boolean = false): Promise<AxiosResponse<any>> {
         const response = await axios.post(`${this.url}${path}`, data, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
@@ -59,7 +70,7 @@ class GigaChat {
         return response;
     }
 
-    private async getImage(imageId: string): Promise <any> {
+    private async getImage(imageId: string): Promise <AxiosResponse<any>> {
         const responce = await axios.get(`${this.url}/files/${imageId}/content`, {
             headers: {
                 Authorization: `Bearer ${this.authorization}`,
@@ -84,7 +95,8 @@ class GigaChat {
         }
     }
 
-    private async handlingError(error: any, currentFunction: any): Promise<any> {
+    private async handlingError(error: any, 
+        currentFunction: any): Promise<any> {
         if(this.autoRefreshToken && error.response.data.message === "Token has expired"){
             try {
                 await this.createToken();
@@ -100,7 +112,7 @@ class GigaChat {
         }
     }
 
-    public async createToken(): Promise<any> {
+    public async createToken(): Promise<ITokenResponse> {
         try {
             const requestUID = uuidv4();
             const data = new URLSearchParams();
@@ -120,7 +132,8 @@ class GigaChat {
                 },
                 httpsAgent: new Agent({
                     rejectUnauthorized: !this.isIgnoreTSL
-                })
+                }),
+                maxRedirects: 5
             })
             this.authorization = responce.data.access_token;
             return responce.data;
@@ -130,7 +143,7 @@ class GigaChat {
         }
     }
 
-    public async completion(data: any): Promise<any> {
+    public async completion(data: ICompletionRequest): Promise<ICompletionResponse> {
         const path = "/chat/completions";
         try {
             const response = await this.post(path, data);
@@ -163,60 +176,91 @@ class GigaChat {
                         });
       
                         return response.data;
-                    } catch (error) {
+                    } 
+                    catch (error) {
                         throw new Error(`Ошибка при сохранении файла: ${error}`);
                     }
-                } else {
+                } 
+                else {
                     return response.data;
                 }
-            } else {
+            } 
+            else {
                 return response.data;
             }
-        } catch (error) {
-            return await this.handlingError(error, async () => {
+        } 
+        catch (error) {
+            return await this.handlingError(error as AxiosError, async () => {
                 return await this.post(path, data);
             });
         }
     }      
 
-    public async completionStream(data: any): Promise<any> {
+    public async completionStream(data: ICompletionRequest): Promise<StreamResponse> {
         const path = "/chat/completions";
+        const streamData = {...data, stream: true};
         try {
-            const response = await this.post(path, data, true);
+            const response = await this.post(path, streamData, true);
             return response.data;
         } 
         catch(error) {
-            return await this.handlingError(error, async () => {
-                return await this.post(path, data, true);
-            })
+            return await this.handlingError(error as AxiosError, async () => {
+                return await this.post(path, streamData, true);
+            });
         }
     }
 
-    public async allModels(): Promise<any> {
+    public async allModels(): Promise<IAllModelResponse> {
         const path = "/models";
         try {
             const responce = await this.get(path);
             return responce.data;
         }
         catch(error) {
-            return await this.handlingError(error, async () => {
+            return await this.handlingError(error as AxiosError, async () => {
                 return await this.get(path);
-            })
+            });
         }
     }
 
-    public async model(modelName: string): Promise<any> {
+    public async model(modelName: string): Promise<IModelResponse> {
         const path = `/models/${modelName}`;
         try {
             const responce = await this.get(path);
             return responce.data;
         }
         catch(error) {
-            return await this.handlingError(error, async () => {
+            return await this.handlingError(error as AxiosError, async () => {
                 return await this.get(path);
-            })
+            });
+        }
+    }
+
+    public async embedding(input: string[]): Promise<IEmbeddingResponse> {
+        const path = '/embeddings';
+        try {
+            const responce = await this.post(path, {input: input});
+            return responce.data;
+        }
+        catch(error) {
+            return await this.handlingError(error as AxiosError, async () => {
+                return await this.post(path, {input: input});
+            });
+        }
+    }
+
+    public async summarize(model: string, input: string[]): Promise<ISummarizeResponce[]> {
+        const path = '/tokens/count';
+        try {
+            const responce = await this.post(path, {model, input});
+            return responce.data;
+        }
+        catch(error) {
+            return await this.handlingError(error as AxiosError, async () => {
+                return await this.post(path, {model, input});
+            });
         }
     }
 }
 
-export default GigaChat;
+export { GigaChat };

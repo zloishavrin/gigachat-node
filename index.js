@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GigaChat = void 0;
 const axios_1 = require("axios");
 const uuid_1 = require("uuid");
 const https_1 = require("https");
@@ -115,7 +116,8 @@ class GigaChat {
                     },
                     httpsAgent: new https_1.Agent({
                         rejectUnauthorized: !this.isIgnoreTSL
-                    })
+                    }),
+                    maxRedirects: 5
                 });
                 this.authorization = responce.data.access_token;
                 return responce.data;
@@ -179,13 +181,14 @@ class GigaChat {
     completionStream(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const path = "/chat/completions";
+            const streamData = Object.assign(Object.assign({}, data), { stream: true });
             try {
-                const response = yield this.post(path, data, true);
+                const response = yield this.post(path, streamData, true);
                 return response.data;
             }
             catch (error) {
                 return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
-                    return yield this.post(path, data, true);
+                    return yield this.post(path, streamData, true);
                 }));
             }
         });
@@ -218,6 +221,34 @@ class GigaChat {
             }
         });
     }
+    embedding(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const path = '/embeddings';
+            try {
+                const responce = yield this.post(path, { input: input });
+                return responce.data;
+            }
+            catch (error) {
+                return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                    return yield this.post(path, { input: input });
+                }));
+            }
+        });
+    }
+    summarize(model, input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const path = '/tokens/count';
+            try {
+                const responce = yield this.post(path, { model, input });
+                return responce.data;
+            }
+            catch (error) {
+                return yield this.handlingError(error, () => __awaiter(this, void 0, void 0, function* () {
+                    return yield this.post(path, { model, input });
+                }));
+            }
+        });
+    }
 }
-exports.default = GigaChat;
+exports.GigaChat = GigaChat;
 //# sourceMappingURL=index.js.map
