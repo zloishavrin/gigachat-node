@@ -89,8 +89,7 @@ const stream = await client.completionStream({
             role:"user",
             content:"Привет! Напиши текст на 2000 слов про историю часов."
         }
-    ],
-    "stream":true
+    ]
 });
 
 let str = '';
@@ -124,6 +123,24 @@ const responce = await client.completion({
 console.log(responce.choices[0].message.image);
 ```
 
+### Векторное представление текста
+
+Возвращает векторные представления соответствующих текстовых запросов. [Подробнее в документации API](https://developers.sber.ru/docs/ru/gigachat/api/reference/rest/post-embeddings).
+
+```javascript
+const embed = await client.embedding(["Как дела?", "Векторное представлеие? 0_0"]);
+console.log(embed.data);
+```
+
+### Подсчет кол-ва токенов
+
+Возвращает объект с информацией о количестве токенов, посчитанных заданной моделью. [Подробнее в документации API](https://developers.sber.ru/docs/ru/gigachat/api/reference/rest/post-tokens-count).
+
+```javascript
+const sum = await client.summarize("GigaChat:latest", ["Подсчитай кол-во токенов в этой строке"]);
+console.log(sum[0].tokens);
+```
+
 ## Примеры работы
 
 * [Телеграм-бот с GigaChat API](https://github.com/zloishavrin/telegram-bot-gigachat)
@@ -137,7 +154,7 @@ console.log(responce.choices[0].message.image);
 |Автоматическая смена токена, если срок действия подходит к концу|:white_check_mark:|
 |Завершение чата в потоке|:white_check_mark:|
 |Генерация картинок при завершении чата|:white_check_mark:|
-|Написание интерфейсов||
-|Векторное представление текста||
-|Метод для расчета кол-ва токенов по строчке запроса||
-|Автоматическое добавление свойства **stream** при передаче ответа в потоке||
+|Написание интерфейсов|:white_check_mark:|
+|Векторное представление текста|:white_check_mark:|
+|Метод для расчета кол-ва токенов по строчке запроса|:white_check_mark:|
+|Автоматическое добавление свойства **stream** при передаче ответа в потоке|:white_check_mark:|
