@@ -1,10 +1,11 @@
-# GigaChat Node API Library
+# GigaChat API Library
 
 Эта библиотека обеспечивает удобный доступ к GigaChat REST API из TypeScript или JavaScript.
 
 Чтобы узнать, как использовать GigaChat API, ознакомьтесь с [документацией по API](https://developers.sber.ru/docs/ru/gigachat/api/overview).
 
 * [Установка](#установка)
+* [Импорт](#импорт)
 * [Начало работы](#начало-работы)
 * [Получение всех моделей](#получение-всех-моделей)
 * [Описание модели](#описание-модели)
@@ -21,6 +22,18 @@
 
 ```bash
 npm i gigachat-node
+```
+
+### Импорт
+
+Первый вариант импорта:
+```javascript
+import { GigaChat } from 'gigachat-node';
+```
+
+Второй вариант импорта:
+```javascript
+const GigaChat = require('gigachat-node').GigaChat;
 ```
 
 ### Начало работы
