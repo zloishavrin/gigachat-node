@@ -1,7 +1,7 @@
 {
   "name": "gigachat-node",
-  "version": "2.0.1",
-  "description": "The unoffical Node.js/Typescript library for the GigaChat API",
+  "version": "2.1.0",
+  "description": "The unoffical JavaScript/TypesSript library for the GigaChat API",
   "main": "index.js",
   "type": "commonjs",
   "repository": "github:zloishavrin/gigachat-node",
