@@ -5,7 +5,7 @@ import { ICompletionRequest, ICompletionResponse } from "./interfaces/completion
 import { IAllModelResponse, IModelResponse } from "./interfaces/model";
 import { ITokenResponse } from "./interfaces/token";
 import { IEmbeddingResponse } from "./interfaces/embedding";
-import { ISummarizeResponce } from "./interfaces/summarize";
+import { ISummarizeResponse } from "./interfaces/summarize";
 declare class GigaChat {
     authorization: string | undefined;
     private clientSecretKey;
@@ -30,6 +30,6 @@ declare class GigaChat {
     allModels(): Promise<IAllModelResponse>;
     model(modelName: string): Promise<IModelResponse>;
     embedding(input: string[]): Promise<IEmbeddingResponse>;
-    summarize(model: string, input: string[]): Promise<ISummarizeResponce[]>;
+    summarize(model: string, input: string[]): Promise<ISummarizeResponse[]>;
 }
 export { GigaChat };

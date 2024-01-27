@@ -223,7 +223,7 @@ class GigaChat {
     }
     embedding(input) {
         return __awaiter(this, void 0, void 0, function* () {
-            const path = '/embeddings';
+            const path = "/embeddings";
             try {
                 const responce = yield this.post(path, { input: input });
                 return responce.data;
@@ -237,7 +237,7 @@ class GigaChat {
     }
     summarize(model, input) {
         return __awaiter(this, void 0, void 0, function* () {
-            const path = '/tokens/count';
+            const path = "/tokens/count";
             try {
                 const responce = yield this.post(path, { model, input });
                 return responce.data;

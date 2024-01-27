@@ -13,7 +13,7 @@ import {
     IModelResponse } from "./interfaces/model";
 import { ITokenResponse } from "./interfaces/token";
 import { IEmbeddingResponse } from "./interfaces/embedding";
-import { ISummarizeResponce } from "./interfaces/summarize";
+import { ISummarizeResponse } from "./interfaces/summarize";
 
 class GigaChat {
 
@@ -198,7 +198,7 @@ class GigaChat {
 
     public async completionStream(data: ICompletionRequest): Promise<StreamResponse> {
         const path = "/chat/completions";
-        const streamData = {...data, stream: true};
+        const streamData = { ...data, stream: true };
         try {
             const response = await this.post(path, streamData, true);
             return response.data;
@@ -237,27 +237,27 @@ class GigaChat {
     }
 
     public async embedding(input: string[]): Promise<IEmbeddingResponse> {
-        const path = '/embeddings';
+        const path = "/embeddings";
         try {
-            const responce = await this.post(path, {input: input});
+            const responce = await this.post(path, { input: input });
             return responce.data;
         }
         catch(error) {
             return await this.handlingError(error as AxiosError, async () => {
-                return await this.post(path, {input: input});
+                return await this.post(path, { input: input });
             });
         }
     }
 
-    public async summarize(model: string, input: string[]): Promise<ISummarizeResponce[]> {
-        const path = '/tokens/count';
+    public async summarize(model: string, input: string[]): Promise<ISummarizeResponse[]> {
+        const path = "/tokens/count";
         try {
-            const responce = await this.post(path, {model, input});
+            const responce = await this.post(path, { model, input });
             return responce.data;
         }
         catch(error) {
             return await this.handlingError(error as AxiosError, async () => {
-                return await this.post(path, {model, input});
+                return await this.post(path, { model, input });
             });
         }
     }
