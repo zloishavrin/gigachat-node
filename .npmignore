@@ -3,3 +3,4 @@ dist
 test
 nodemon.json
 .eslintrc
+LICENSE
