@@ -38,7 +38,7 @@ const GigaChat = require('gigachat-node').GigaChat;
 
 ### Начало работы
 
-Создание экземпляра класса и получение токена доступа к API [(подробнее в документации)](https://developers.sber.ru/docs/ru/gigachat/api/authorization).
+Создание экземпляра класса и получение токена доступа к API [(подробнее в документации)](https://developers.sber.ru/docs/ru/gigachat/api/authorization). Обратите внимание, что при получении CLIENT_SECRET необходимо копировать значение в Base64, иначе придется переводить самостоятельно ключ в Base64.
 
 ```js
 const client = new GigaChat(
