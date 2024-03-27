@@ -1,10 +1,10 @@
 {
   "name": "gigachat-node",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "The unoffical JavaScript/TypesSript library for the GigaChat API",
   "main": "index.js",
   "type": "commonjs",
-  "repository": "github:zloishavrin/gigachat-node",
+  "repository": "git+https://github.com/zloishavrin/gigachat-node.git",
   "scripts": {
     "build": "tsc",
     "start": "nodemon"

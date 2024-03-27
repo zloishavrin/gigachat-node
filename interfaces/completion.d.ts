@@ -7,6 +7,8 @@ export interface ICompletionRequest {
     n?: number;
     max_tokens?: number;
     repetition_penalty?: number;
+    update_interval?: number;
+    profanity_check?: boolean;
 }
 export interface ICompletionResponse {
     created: number;
