@@ -239,7 +239,7 @@ class GigaChat {
     public async embedding(input: string[]): Promise<IEmbeddingResponse> {
         const path = "/embeddings";
         try {
-            const responce = await this.post(path, { input: input });
+            const responce = await this.post(path, { model: 'Embeddings', input: input });
             return responce.data;
         }
         catch(error) {

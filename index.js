@@ -225,7 +225,7 @@ class GigaChat {
         return __awaiter(this, void 0, void 0, function* () {
             const path = "/embeddings";
             try {
-                const responce = yield this.post(path, { input: input });
+                const responce = yield this.post(path, {  model: 'Embeddings', input: input });
                 return responce.data;
             }
             catch (error) {
