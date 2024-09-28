@@ -144,7 +144,7 @@ console.log(responce.choices[0].message.image);
 Возвращает векторные представления соответствующих текстовых запросов. [Подробнее в документации API](https://developers.sber.ru/docs/ru/gigachat/api/reference/rest/post-embeddings).
 
 ```javascript
-const embed = await client.embedding(["Как дела?", "Векторное представлеие? 0_0"]);
+const embed = await client.embedding('Название модели', ["Как дела?", "Векторное представлеие? 0_0"]);
 console.log(embed.data);
 ```
 
