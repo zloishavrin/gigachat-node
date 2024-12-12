@@ -1,5 +1,13 @@
 # GigaChat API Library
 
+<a href="https://star-history.com/#zloishavrin/gigachat-node&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=zloishavrin/gigachat-node&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=zloishavrin/gigachat-node&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=zloishavrin/gigachat-node&type=Date" />
+ </picture>
+</a>
+
 Эта библиотека обеспечивает удобный доступ к GigaChat REST API из TypeScript или JavaScript.
 
 Чтобы узнать, как использовать GigaChat API, ознакомьтесь с [документацией по API](https://developers.sber.ru/docs/ru/gigachat/api/overview).
