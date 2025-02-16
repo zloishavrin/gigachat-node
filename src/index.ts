@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Agent } from "https";
 import * as fs from "fs";
 import { Readable } from "stream";
+import * as FormData from "form-data";
 type StreamResponse = Readable;
 // Interfaces
 import { 
@@ -14,6 +15,7 @@ import {
 import { ITokenResponse } from "./interfaces/token";
 import { IEmbeddingResponse } from "./interfaces/embedding";
 import { ISummarizeResponse } from "./interfaces/summarize";
+import { IFile } from "./interfaces/file";
 
 class GigaChat {
 
@@ -82,6 +84,25 @@ class GigaChat {
             responseType: "stream"
         });
         return responce;
+    }
+
+    private async postFiles (pathToFile: string, purpose: string): Promise <AxiosResponse<IFile>> {
+        const data = new FormData();
+        data.append("purpose", purpose);
+        data.append("file", fs.createReadStream(pathToFile));
+        const response = await axios.post(`${this.url}/files`, data, {
+            headers: {
+                Authorization: `Bearer ${this.authorization}`,
+                Accept: "application/json",
+                "Content-Type": "multipart/form-data",
+                ...data.getHeaders()
+            },
+            httpsAgent: new Agent({
+                rejectUnauthorized: !this.isIgnoreTSL
+            }),
+            responseType: "json"
+        });
+        return response
     }
 
     private extractImageSource(completionContent: string): string | null {
@@ -258,6 +279,17 @@ class GigaChat {
         catch(error) {
             return await this.handlingError(error as AxiosError, async () => {
                 return await this.post(path, { model, input });
+            });
+        }
+    }
+
+    public async uploadFile(pathToFile: string, purpose = "general"): Promise<IFile> {
+        try {
+            const response = await this.postFiles(pathToFile, purpose)
+            return response.data
+        } catch (error) {
+            return await this.handlingError(error as AxiosError, async () => {
+                return await this.postFiles(pathToFile, purpose);
             });
         }
     }
