@@ -5,7 +5,7 @@ prev: false
 title: "IMessage"
 ---
 
-Defined in: [interfaces/message.ts:4](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/message.ts#L4)
+Defined in: [interfaces/message.ts:4](https://github.com/zloishavrin/gigachat-node/blob/2c7b7714bc6108bfc9bed7a10efa55e8942f5ece/src/interfaces/message.ts#L4)
 
 Интерфейс, представляющий сообщение в чате.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/message.ts:4](https://github.com/zloishavrin/gigachat-no
 
 > **content**: `string`
 
-Defined in: [interfaces/message.ts:17](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/message.ts#L17)
+Defined in: [interfaces/message.ts:17](https://github.com/zloishavrin/gigachat-node/blob/2c7b7714bc6108bfc9bed7a10efa55e8942f5ece/src/interfaces/message.ts#L17)
 
 Текстовое содержимое сообщения.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/message.ts:17](https://github.com/zloishavrin/gigachat-n
 
 > `optional` **image**: `string`
 
-Defined in: [interfaces/message.ts:22](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/message.ts#L22)
+Defined in: [interfaces/message.ts:22](https://github.com/zloishavrin/gigachat-node/blob/2c7b7714bc6108bfc9bed7a10efa55e8942f5ece/src/interfaces/message.ts#L22)
 
 Опциональный параметр — ссылка на изображение, прикреплённое к сообщению.
 
@@ -35,7 +35,7 @@ Defined in: [interfaces/message.ts:22](https://github.com/zloishavrin/gigachat-n
 
 > **role**: `"user"` \| `"assistant"` \| `"system"` \| `"search_result"`
 
-Defined in: [interfaces/message.ts:12](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/message.ts#L12)
+Defined in: [interfaces/message.ts:12](https://github.com/zloishavrin/gigachat-node/blob/2c7b7714bc6108bfc9bed7a10efa55e8942f5ece/src/interfaces/message.ts#L12)
 
 Роль отправителя сообщения.
 - `user` — сообщение от пользователя.
