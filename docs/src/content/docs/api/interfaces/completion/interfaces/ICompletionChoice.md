@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionChoice"
 ---
 
-Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/completion.ts#L95)
+Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L95)
 
 Один из вариантов ответа в completion-запросе.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigacha
 
 > **finish\_reason**: `string`
 
-Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/completion.ts#L100)
+Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L100)
 
 Причина завершения генерации (например, "stop" или "length").
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigach
 
 > **index**: `number`
 
-Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/completion.ts#L97)
+Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L97)
 
 Индекс данного варианта ответа в списке.
 
@@ -33,8 +33,8 @@ Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigacha
 
 ### message
 
-> **message**: [`IMessage`](/gigachat-node/dist/api/interfaces/message/interfaces/imessage/)
+> **message**: [`IMessage`](/gigachat-node/api/interfaces/message/interfaces/imessage/)
 
-Defined in: [interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/completion.ts#L103)
+Defined in: [interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L103)
 
 Сгенерированное сообщение с ответом.

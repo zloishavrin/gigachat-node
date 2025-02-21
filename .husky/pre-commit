@@ -3,3 +3,14 @@
 
 # Lint&Prettier
 npx lint-staged
+
+# Обновление руководства из readme в документацию
+  # Удаление файла
+rm -f ./docs/src/content/docs/guides/readme.md
+    # Добавление заголовка в README перед копированием
+echo "---\ntitle: GigaChatJS\ndescription: Начните работу.\n---\n\n$(cat ./readme.md)" > ./docs/src/content/docs/guides/readme.md
+
+# Билд документации
+cd ./docs && npm run build
+
+git add .

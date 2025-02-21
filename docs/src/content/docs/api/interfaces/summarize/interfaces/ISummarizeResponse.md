@@ -5,7 +5,7 @@ prev: false
 title: "ISummarizeResponse"
 ---
 
-Defined in: [interfaces/summarize.ts:4](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/summarize.ts#L4)
+Defined in: [interfaces/summarize.ts:4](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/summarize.ts#L4)
 
 Интерфейс, представляющий ответ на запрос суммаризации.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/summarize.ts:4](https://github.com/zloishavrin/gigachat-
 
 > **characters**: `number`
 
-Defined in: [interfaces/summarize.ts:18](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/summarize.ts#L18)
+Defined in: [interfaces/summarize.ts:18](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/summarize.ts#L18)
 
 Количество символов в суммаризированном тексте.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/summarize.ts:18](https://github.com/zloishavrin/gigachat
 
 > **object**: `string`
 
-Defined in: [interfaces/summarize.ts:8](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/summarize.ts#L8)
+Defined in: [interfaces/summarize.ts:8](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/summarize.ts#L8)
 
 Тип объекта (например, "summary").
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/summarize.ts:8](https://github.com/zloishavrin/gigachat-
 
 > **tokens**: `number`
 
-Defined in: [interfaces/summarize.ts:13](https://github.com/zloishavrin/gigachat-node/blob/97b2ade0b7f31c93519f3b9ad8ca6ad9972792e9/src/interfaces/summarize.ts#L13)
+Defined in: [interfaces/summarize.ts:13](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/summarize.ts#L13)
 
 Количество токенов в суммаризированном тексте.
