@@ -5,7 +5,7 @@ prev: false
 title: "IMessage"
 ---
 
-Defined in: [src/interfaces/message.ts:4](https://github.com/zloishavrin/gigachat-node/blob/31a44f8e658d314de1a3003c0dbac432e04dfa0f/src/interfaces/message.ts#L4)
+Defined in: [src/interfaces/message.ts:4](https://github.com/zloishavrin/gigachat-node/blob/4d407d5ec44fd7231be5e6791fef0440e51d136d/src/interfaces/message.ts#L4)
 
 Интерфейс, представляющий сообщение в чате.
 
@@ -15,7 +15,7 @@ Defined in: [src/interfaces/message.ts:4](https://github.com/zloishavrin/gigacha
 
 > **content**: `string`
 
-Defined in: [src/interfaces/message.ts:17](https://github.com/zloishavrin/gigachat-node/blob/31a44f8e658d314de1a3003c0dbac432e04dfa0f/src/interfaces/message.ts#L17)
+Defined in: [src/interfaces/message.ts:17](https://github.com/zloishavrin/gigachat-node/blob/4d407d5ec44fd7231be5e6791fef0440e51d136d/src/interfaces/message.ts#L17)
 
 Текстовое содержимое сообщения.
 
@@ -25,7 +25,7 @@ Defined in: [src/interfaces/message.ts:17](https://github.com/zloishavrin/gigach
 
 > `optional` **image**: `string`
 
-Defined in: [src/interfaces/message.ts:22](https://github.com/zloishavrin/gigachat-node/blob/31a44f8e658d314de1a3003c0dbac432e04dfa0f/src/interfaces/message.ts#L22)
+Defined in: [src/interfaces/message.ts:22](https://github.com/zloishavrin/gigachat-node/blob/4d407d5ec44fd7231be5e6791fef0440e51d136d/src/interfaces/message.ts#L22)
 
 Опциональный параметр — ссылка на изображение, прикреплённое к сообщению.
 
@@ -35,7 +35,7 @@ Defined in: [src/interfaces/message.ts:22](https://github.com/zloishavrin/gigach
 
 > **role**: `"user"` \| `"assistant"` \| `"system"` \| `"search_result"`
 
-Defined in: [src/interfaces/message.ts:12](https://github.com/zloishavrin/gigachat-node/blob/31a44f8e658d314de1a3003c0dbac432e04dfa0f/src/interfaces/message.ts#L12)
+Defined in: [src/interfaces/message.ts:12](https://github.com/zloishavrin/gigachat-node/blob/4d407d5ec44fd7231be5e6791fef0440e51d136d/src/interfaces/message.ts#L12)
 
 Роль отправителя сообщения.
 - `user` — сообщение от пользователя.

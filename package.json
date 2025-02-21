@@ -1,6 +1,6 @@
 {
   "name": "gigachat-node",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "The unoffical JavaScript/TypesSript library for the GigaChat API",
   "main": "index.js",
   "type": "commonjs",
@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "tsc",
-    "start": "nodemon",
+    "example": "nodemon",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write src"

@@ -16,7 +16,6 @@ import { ITokenResponse } from '@interfaces/token';
 import { FormDataBuilder } from './utils/FormDataBuilder';
 import { FormDataFile } from './utils/FormDataFile';
 import { GigaChatError } from './utils/GigaChatError';
-type StreamResponse = Readable;
 
 /**
  * Класс для взаимодействия с API GigaChat.
@@ -201,14 +200,14 @@ class GigaChat {
 
   /**
    * Обработка ошибки
-   * @param {any} error Ошибка.
-   * @param {() => Promise<AxiosResponse<any>>} currentFunction Функция, которую надо выполнить, если проблема была в токенах и она решилась.
-   * @returns {Promise<any>} Результат выполнения currentFunction().
+   * @param {unknown} error Ошибка.
+   * @param {() => Promise<AxiosResponse<T>>} currentFunction Функция, которую надо выполнить, если проблема была в токенах и она решилась.
+   * @returns {Promise<T>} Результат выполнения currentFunction().
    * @throws {GigaChatError} Специфичная ошибка API
    */
-  private async handlingError(
-    error: any,
-    currentFunction: () => Promise<AxiosResponse<any>>,
+  private async handlingError<T>(
+    error: unknown,
+    currentFunction: () => Promise<AxiosResponse<T>>,
   ): Promise<any> {
     if (isAxiosError(error)) {
       const status = error.response?.status;
@@ -231,11 +230,7 @@ class GigaChat {
       }
     }
 
-    if (error.code === 'ECONNABORTED') {
-      throw new GigaChatError('Request timeout', 'TIMEOUT');
-    }
-
-    throw new GigaChatError(`Unknown error: ${error.message}`, 'UNKNOWN_ERROR');
+    throw new GigaChatError(`Unknown error: ${error}`, 'UNKNOWN_ERROR');
   }
 
   /**
@@ -322,7 +317,7 @@ class GigaChat {
         return response.data;
       }
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<ICompletionResponse>(error, async () => {
         return await this.post(path, data);
       });
     }
@@ -331,16 +326,16 @@ class GigaChat {
   /**
    * Отправляет потоковый запрос на завершение чата.
    * @param {ICompletionRequest} data - Данные запроса.
-   * @returns {Promise<StreamResponse>} Потоковый ответ сервера.
+   * @returns {Promise<Readable>} Потоковый ответ сервера.
    */
-  public async completionStream(data: ICompletionRequest): Promise<StreamResponse> {
+  public async completionStream(data: ICompletionRequest): Promise<Readable> {
     const path = '/chat/completions';
     const streamData = { ...data, stream: true };
     try {
       const response = await this.post(path, streamData, true);
       return response.data;
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<Readable>(error, async () => {
         return await this.post(path, streamData, true);
       });
     }
@@ -356,7 +351,7 @@ class GigaChat {
       const responce = await this.get(path);
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<IAllModelResponse>(error, async () => {
         return await this.get(path);
       });
     }
@@ -373,7 +368,7 @@ class GigaChat {
       const responce = await this.get(path);
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<IModelResponse>(error, async () => {
         return await this.get(path);
       });
     }
@@ -390,7 +385,7 @@ class GigaChat {
       const responce = await this.post(path, { model: 'Embeddings', input: input });
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<IEmbeddingResponse>(error, async () => {
         return await this.post(path, { input: input });
       });
     }
@@ -408,7 +403,7 @@ class GigaChat {
       const responce = await this.post(path, { model, input });
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<ISummarizeResponse[]>(error, async () => {
         return await this.post(path, { model, input });
       });
     }
@@ -425,11 +420,11 @@ class GigaChat {
       const response = await this.postFiles(pathToFile, purpose);
       return response.data;
     } catch (error) {
-      return await this.handlingError(error, async () => {
+      return await this.handlingError<IFile>(error, async () => {
         return await this.postFiles(pathToFile, purpose);
       });
     }
   }
 }
 
-export { GigaChat };
+export { GigaChat, GigaChatError };
