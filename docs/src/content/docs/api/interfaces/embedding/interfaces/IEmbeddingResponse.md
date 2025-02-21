@@ -5,7 +5,7 @@ prev: false
 title: "IEmbeddingResponse"
 ---
 
-Defined in: [interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat-node/blob/caa3650af4fe67dae9b8b26de5173c6609712947/src/interfaces/embedding.ts#L24)
+Defined in: [interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat-node/blob/ab8b775e72c82ff0f01d5047b5aa86d922ba4ef0/src/interfaces/embedding.ts#L24)
 
 Интерфейс ответа на запрос эмбеддингов.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat
 
 > **data**: [`IEmbedding`](/api/interfaces/embedding/interfaces/iembedding/)[]
 
-Defined in: [interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat-node/blob/caa3650af4fe67dae9b8b26de5173c6609712947/src/interfaces/embedding.ts#L38)
+Defined in: [interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat-node/blob/ab8b775e72c82ff0f01d5047b5aa86d922ba4ef0/src/interfaces/embedding.ts#L38)
 
 Массив эмбеддингов, полученных в ответе.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat
 
 > **model**: `string`
 
-Defined in: [interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat-node/blob/caa3650af4fe67dae9b8b26de5173c6609712947/src/interfaces/embedding.ts#L33)
+Defined in: [interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat-node/blob/ab8b775e72c82ff0f01d5047b5aa86d922ba4ef0/src/interfaces/embedding.ts#L33)
 
 Название модели, использованной для генерации эмбеддингов.
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat
 
 > **object**: `string`
 
-Defined in: [interfaces/embedding.ts:28](https://github.com/zloishavrin/gigachat-node/blob/caa3650af4fe67dae9b8b26de5173c6609712947/src/interfaces/embedding.ts#L28)
+Defined in: [interfaces/embedding.ts:28](https://github.com/zloishavrin/gigachat-node/blob/ab8b775e72c82ff0f01d5047b5aa86d922ba4ef0/src/interfaces/embedding.ts#L28)
 
 Тип объекта (например, "embedding").

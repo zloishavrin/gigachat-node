@@ -1,8 +1,3 @@
----
-title: Приступить к работе.
-description: Кратко о начале работы с gigachat-node
----
-
 # GigaChat API Library
 
 <a href="https://star-history.com/#zloishavrin/gigachat-node&Date">

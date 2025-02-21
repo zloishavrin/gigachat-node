@@ -1,6 +1,6 @@
 ---
-title: Приступить к работе.
-description: Кратко о начале работы с gigachat-node
+title: GigaChatJS
+description: Начните работу.
 ---
 
 # GigaChat API Library
