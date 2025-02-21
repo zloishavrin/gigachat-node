@@ -28,6 +28,9 @@ jobs:
       - name: Build package
         run: npm run build
 
+      - name: Copy package.json to dist
+        run: jq 'del(.devDependencies, .scripts)' package.json > dist/package.json
+
       - name: Publish to npm
         run: |
           cd dist
