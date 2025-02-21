@@ -5,7 +5,7 @@ prev: false
 title: "IFile"
 ---
 
-Defined in: [src/interfaces/file.ts:4](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L4)
+Defined in: [src/interfaces/file.ts:4](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L4)
 
 Интерфейс, представляющий загруженный файл.
 
@@ -15,7 +15,7 @@ Defined in: [src/interfaces/file.ts:4](https://github.com/zloishavrin/gigachat-n
 
 > `optional` **access\_policy**: `"private"` \| `"public"`
 
-Defined in: [src/interfaces/file.ts:39](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L39)
+Defined in: [src/interfaces/file.ts:39](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L39)
 
 Политика доступа к файлу: `private` (по умолчанию) или `public`.
 Опциональный параметр.
@@ -26,7 +26,7 @@ Defined in: [src/interfaces/file.ts:39](https://github.com/zloishavrin/gigachat-
 
 > **bytes**: `number`
 
-Defined in: [src/interfaces/file.ts:8](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L8)
+Defined in: [src/interfaces/file.ts:8](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L8)
 
 Размер файла в байтах.
 
@@ -36,7 +36,7 @@ Defined in: [src/interfaces/file.ts:8](https://github.com/zloishavrin/gigachat-n
 
 > **created\_at**: `number`
 
-Defined in: [src/interfaces/file.ts:13](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L13)
+Defined in: [src/interfaces/file.ts:13](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L13)
 
 Временная метка создания файла (в формате Unix Timestamp).
 
@@ -46,7 +46,7 @@ Defined in: [src/interfaces/file.ts:13](https://github.com/zloishavrin/gigachat-
 
 > **filename**: `string`
 
-Defined in: [src/interfaces/file.ts:18](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L18)
+Defined in: [src/interfaces/file.ts:18](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L18)
 
 Имя файла.
 
@@ -56,7 +56,7 @@ Defined in: [src/interfaces/file.ts:18](https://github.com/zloishavrin/gigachat-
 
 > **id**: `string`
 
-Defined in: [src/interfaces/file.ts:23](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L23)
+Defined in: [src/interfaces/file.ts:23](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L23)
 
 Уникальный идентификатор файла.
 
@@ -66,7 +66,7 @@ Defined in: [src/interfaces/file.ts:23](https://github.com/zloishavrin/gigachat-
 
 > **object**: `string`
 
-Defined in: [src/interfaces/file.ts:28](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L28)
+Defined in: [src/interfaces/file.ts:28](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L28)
 
 Тип объекта (например, "file").
 
@@ -76,6 +76,6 @@ Defined in: [src/interfaces/file.ts:28](https://github.com/zloishavrin/gigachat-
 
 > **purpose**: `string`
 
-Defined in: [src/interfaces/file.ts:33](https://github.com/zloishavrin/gigachat-node/blob/417d2024921382b1bcd8619ed0bfe58ac6a747e8/src/interfaces/file.ts#L33)
+Defined in: [src/interfaces/file.ts:33](https://github.com/zloishavrin/gigachat-node/blob/dbb67ea20502f0f76788a6722a10603d4c70cfef/src/interfaces/file.ts#L33)
 
 Назначение файла (например, "general" или другое).

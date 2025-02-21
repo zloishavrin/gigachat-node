@@ -3,6 +3,8 @@ title: Телеграм-бот (JavaScript)
 description: Телеграм-бот с GigaChat API.
 ---
 
+[Репозиторий с кодом](https://github.com/zloishavrin/gigachat-tg-bot)
+
 Установка библиотек
 
 ```shell

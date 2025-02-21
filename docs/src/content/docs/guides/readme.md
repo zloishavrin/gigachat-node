@@ -3,6 +3,9 @@ title: GigaChatJS
 description: Начните работу c GigaChatAPI.
 ---
 
+![GitHub Repo stars](https://img.shields.io/github/stars/zloishavrin/gigachat-node)&nbsp;![NPM Version](https://img.shields.io/npm/v/gigachat-node?style=flat-square)&nbsp;![NPM Downloads](https://img.shields.io/npm/dw/gigachat-node?style=flat-square)&nbsp;![npm bundle size](https://img.shields.io/bundlephobia/minzip/gigachat-node?style=flat-square)&nbsp;![Static Badge](https://img.shields.io/badge/dependencies-1-1)
+
+
 # GigaChat API Library
 
 Эта библиотека обеспечивает удобный доступ к GigaChat REST API из TypeScript или JavaScript.

@@ -3,6 +3,8 @@ title: RESTful API (TypeScript)
 description: RESTful API с GigaChat API.
 ---
 
+[Репозиторий с кодом](https://github.com/zloishavrin/gigachat-rest-api)
+
 Установка библиотек
 
 ```shell
