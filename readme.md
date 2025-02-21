@@ -1,5 +1,4 @@
-![GitHub Repo stars](https://img.shields.io/github/stars/zloishavrin/gigachat-node)&nbsp;![NPM Version](https://img.shields.io/npm/v/gigachat-node?style=flat-square)&nbsp;![NPM Downloads](https://img.shields.io/npm/dw/gigachat-node?style=flat-square)&nbsp;![npm bundle size](https://img.shields.io/bundlephobia/minzip/gigachat-node?style=flat-square)&nbsp;![Static Badge](https://img.shields.io/badge/dependencies-1-1?style=flat-square)
-
+<div align="center" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: baseline;">![GitHub Repo stars](https://img.shields.io/github/stars/zloishavrin/gigachat-node)&nbsp;![NPM Version](https://img.shields.io/npm/v/gigachat-node?style=flat-square)&nbsp;![NPM Downloads](https://img.shields.io/npm/dw/gigachat-node?style=flat-square)&nbsp;![npm bundle size](https://img.shields.io/bundlephobia/minzip/gigachat-node?style=flat-square)&nbsp;![Static Badge](https://img.shields.io/badge/dependencies-1-1?style=flat-square)</div>
 
 # GigaChat API Library
 
