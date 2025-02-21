@@ -16,4 +16,3 @@ title: "gigachat-node"
 - [interfaces/model](/gigachat-node/api/interfaces/model/readme/)
 - [interfaces/summarize](/gigachat-node/api/interfaces/summarize/readme/)
 - [interfaces/token](/gigachat-node/api/interfaces/token/readme/)
-- [utils/GigaChatError](/gigachat-node/api/utils/gigachaterror/readme/)

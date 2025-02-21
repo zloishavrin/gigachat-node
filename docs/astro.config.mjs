@@ -26,7 +26,6 @@ export default defineConfig({
           entryPoints: [
 						'../src/index.ts', 
 						"../src/interfaces/*.ts",
-						"../src/utils/GigaChatError.ts",
 					],
           tsconfig: '../tsconfig.json',
 					locale: "ru"
