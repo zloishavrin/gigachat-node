@@ -5,7 +5,7 @@ prev: false
 title: "IModelResponse"
 ---
 
-Defined in: [interfaces/model.ts:4](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/model.ts#L4)
+Defined in: [interfaces/model.ts:4](https://github.com/zloishavrin/gigachat-node/blob/bfc199e41701dd976fcf9cf2361694059bd4c0d3/src/interfaces/model.ts#L4)
 
 Интерфейс, представляющий информацию о модели.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/model.ts:4](https://github.com/zloishavrin/gigachat-node
 
 > **id**: `string`
 
-Defined in: [interfaces/model.ts:8](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/model.ts#L8)
+Defined in: [interfaces/model.ts:8](https://github.com/zloishavrin/gigachat-node/blob/bfc199e41701dd976fcf9cf2361694059bd4c0d3/src/interfaces/model.ts#L8)
 
 Уникальный идентификатор модели.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/model.ts:8](https://github.com/zloishavrin/gigachat-node
 
 > **object**: `string`
 
-Defined in: [interfaces/model.ts:13](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/model.ts#L13)
+Defined in: [interfaces/model.ts:13](https://github.com/zloishavrin/gigachat-node/blob/bfc199e41701dd976fcf9cf2361694059bd4c0d3/src/interfaces/model.ts#L13)
 
 Тип объекта (например, "model").
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/model.ts:13](https://github.com/zloishavrin/gigachat-nod
 
 > **owned\_by**: `string`
 
-Defined in: [interfaces/model.ts:18](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/model.ts#L18)
+Defined in: [interfaces/model.ts:18](https://github.com/zloishavrin/gigachat-node/blob/bfc199e41701dd976fcf9cf2361694059bd4c0d3/src/interfaces/model.ts#L18)
 
 Владелец модели.

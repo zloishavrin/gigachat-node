@@ -6,7 +6,6 @@
     "outDir": "dist",
     "strict": true,
     "sourceMap": true,
-    "types": ["node"],
     "baseUrl": "./",
     "paths": {
       "@interfaces/*": ["src/interfaces/*"]
