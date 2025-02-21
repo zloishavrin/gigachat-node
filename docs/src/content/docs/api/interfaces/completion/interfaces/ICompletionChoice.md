@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionChoice"
 ---
 
-Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/e4979e32ddc2949d9760d858c52af965f28aafee/src/interfaces/completion.ts#L95)
+Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/completion.ts#L95)
 
 Один из вариантов ответа в completion-запросе.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigacha
 
 > **finish\_reason**: `string`
 
-Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/e4979e32ddc2949d9760d858c52af965f28aafee/src/interfaces/completion.ts#L100)
+Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/completion.ts#L100)
 
 Причина завершения генерации (например, "stop" или "length").
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigach
 
 > **index**: `number`
 
-Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/e4979e32ddc2949d9760d858c52af965f28aafee/src/interfaces/completion.ts#L97)
+Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/completion.ts#L97)
 
 Индекс данного варианта ответа в списке.
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigacha
 
 > **message**: [`IMessage`](/api/interfaces/message/interfaces/imessage/)
 
-Defined in: [interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/e4979e32ddc2949d9760d858c52af965f28aafee/src/interfaces/completion.ts#L103)
+Defined in: [interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/a3d89df710c1d6f194f4826dbd8414641234f8c5/src/interfaces/completion.ts#L103)
 
 Сгенерированное сообщение с ответом.
