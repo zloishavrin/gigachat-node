@@ -1,4 +1,14 @@
+/**
+ * Интерфейс, представляющий ответ с токеном доступа.
+ */
 export interface ITokenResponse {
-    access_token: string;
-    expires_at: number;
+  /**
+   * Строка токена доступа, используемого для аутентификации API-запросов.
+   */
+  access_token: string;
+
+  /**
+   * Временная метка (timestamp) истечения срока действия токена (в секундах с начала эпохи Unix).
+   */
+  expires_at: number;
 }

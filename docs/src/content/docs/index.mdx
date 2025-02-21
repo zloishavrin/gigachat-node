@@ -1,0 +1,34 @@
+---
+title: GigaChatJS
+description: Начните работу с GigaChatAPI с помощью GigaChatJS
+template: splash
+hero:
+  tagline: Начните работу с GigaChatAPI
+  image:
+    file: ../../assets/gigachat.svg
+  actions:
+    - text: Начать работу
+      link: /guides/readme/
+      icon: right-arrow
+    - text: Документация
+      link: /api/index/classes/gigachat/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+	<Card title="Установите пакет" icon="download">
+		`npm install gigachat-node`
+	</Card>
+	<Card title="Начните работу" icon="open-book">
+		[Ознакомьтесь с руководством](/guides/readme/)
+	</Card>
+	<Card title="Документация" icon="open-book">
+		[Ознакомьтесь с документацией](/api/index/classes/gigachat/)
+	</Card>
+	<Card title=".NET Библиотека" icon="open-book">
+		Смотрите также [GigaChat.NET](https://github.com/likhoded/GigaChat-.NET)
+	</Card>
+</CardGrid>

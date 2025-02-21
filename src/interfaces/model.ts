@@ -1,10 +1,34 @@
+/**
+ * Интерфейс, представляющий информацию о модели.
+ */
 export interface IModelResponse {
-    id: string;
-    object: string;
-    owned_by: string;
+  /**
+   * Уникальный идентификатор модели.
+   */
+  id: string;
+
+  /**
+   * Тип объекта (например, "model").
+   */
+  object: string;
+
+  /**
+   * Владелец модели.
+   */
+  owned_by: string;
 }
 
+/**
+ * Интерфейс, представляющий ответ, содержащий список доступных моделей.
+ */
 export interface IAllModelResponse {
-    object: string,
-    data: IModelResponse[]
+  /**
+   * Тип объекта (например, "list").
+   */
+  object: string;
+
+  /**
+   * Список моделей.
+   */
+  data: IModelResponse[];
 }

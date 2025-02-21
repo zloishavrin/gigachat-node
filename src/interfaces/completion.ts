@@ -1,33 +1,104 @@
-import { IMessage } from "./message";
+import { IMessage } from './message';
 
+/**
+ * Интерфейс запроса на генерацию текста (completion).
+ */
 export interface ICompletionRequest {
-    model: string;
-    messages: IMessage[],
-    temperature?: number;
-    top_p?: number;
-    n?: number;
-    max_tokens?: number;
-    repetition_penalty?: number;
-    update_interval?: number;
-    profanity_check?: boolean;
+  /** Название модели, которая будет использоваться для генерации. */
+  model: string;
+
+  /** Массив сообщений, на основе которых будет сформирован ответ. */
+  messages: IMessage[];
+
+  /**
+   * Температура генерации (чем выше значение, тем более случайными будут ответы).
+   * Значение должно быть от 0 до 1.
+   * @default 1
+   */
+  temperature?: number;
+
+  /**
+   * Альтернативный параметр управления случайностью выборки токенов.
+   * Используется вместо `temperature`, если задано.
+   * Значение должно быть от 0 до 1.
+   */
+  top_p?: number;
+
+  /**
+   * Количество альтернативных ответов, которые должны быть сгенерированы.
+   * @default 1
+   */
+  n?: number;
+
+  /**
+   * Максимальное количество токенов в ответе.
+   * Если не указано, используется значение по умолчанию модели.
+   */
+  max_tokens?: number;
+
+  /**
+   * Коэффициент штрафа за повторение слов или фраз.
+   * Чем выше значение, тем меньше модель склонна повторяться.
+   */
+  repetition_penalty?: number;
+
+  /**
+   * Интервал обновления потока данных (в миллисекундах).
+   * Используется в потоковом режиме.
+   */
+  update_interval?: number;
+
+  /**
+   * Флаг проверки ненормативной лексики в сгенерированном тексте.
+   * @default false
+   */
+  profanity_check?: boolean;
 }
 
+/**
+ * Интерфейс ответа на запрос генерации текста (completion).
+ */
 export interface ICompletionResponse {
-    created: number,
-    model: string,
-    object: string,
-    usage: ICompletionUsage,
-    choices: ICompletionChoice[]
+  /** Временная метка создания ответа (в формате Unix timestamp). */
+  created: number;
+
+  /** Название модели, использованной для генерации. */
+  model: string;
+
+  /** Тип объекта ответа (обычно "text_completion"). */
+  object: string;
+
+  /** Информация об использовании токенов. */
+  usage: ICompletionUsage;
+
+  /** Список возможных вариантов ответа. */
+  choices: ICompletionChoice[];
 }
 
-interface ICompletionUsage {
-    prompt_tokens: number,
-    completion_tokens: number,
-    total_tokens: number
+/**
+ * Информация об использовании токенов в запросе и ответе.
+ */
+export interface ICompletionUsage {
+  /** Количество токенов во входном запросе. */
+  prompt_tokens: number;
+
+  /** Количество токенов в сгенерированном ответе. */
+  completion_tokens: number;
+
+  /** Общее количество использованных токенов. */
+  total_tokens: number;
 }
 
-interface ICompletionChoice {
-    index: number,
-    finish_reason: string,
-    message: IMessage
+/**
+ * Один из вариантов ответа в completion-запросе.
+ */
+export interface ICompletionChoice {
+  /** Индекс данного варианта ответа в списке. */
+  index: number;
+
+  /** Причина завершения генерации (например, "stop" или "length"). */
+  finish_reason: string;
+
+  /** Сгенерированное сообщение с ответом. */
+  message: IMessage;
 }

@@ -1,6 +1,13 @@
 node_modules
 dist
 test
+src
 nodemon.json
 .eslintrc
+.eslintignore
+.prettierrc.json
 LICENSE
+docs
+jsdoc.json
+*.ts
+*.map

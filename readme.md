@@ -1,3 +1,8 @@
+---
+title: Приступить к работе.
+description: Кратко о начале работы с gigachat-node
+---
+
 # GigaChat API Library
 
 <a href="https://star-history.com/#zloishavrin/gigachat-node&Date">
@@ -201,3 +206,10 @@ console.log(file);
 |Обновление интерфейсов: добавление **search_result** в message, добавление **update_interval** в completion|☑️|
 |Возможность отключения цензуры|☑️|
 |Загрузка файлов|☑️|
+|Конфиг-интерфейс для конструктора класса|☑️|
+|Настройка ESLinter|☑️|
+|Настройка Prettier|☑️|
+|Автодокументирование|☑️|
+|Pre-Commit|☑️|
+|GH-Action для NPM-публикации||
+|Переписать библиотеку на Fetch API| |

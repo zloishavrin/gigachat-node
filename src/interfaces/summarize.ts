@@ -1,5 +1,19 @@
+/**
+ * Интерфейс, представляющий ответ на запрос суммаризации.
+ */
 export interface ISummarizeResponse {
-    object: string;
-    tokens: number;
-    characters: number;
+  /**
+   * Тип объекта (например, "summary").
+   */
+  object: string;
+
+  /**
+   * Количество токенов в суммаризированном тексте.
+   */
+  tokens: number;
+
+  /**
+   * Количество символов в суммаризированном тексте.
+   */
+  characters: number;
 }

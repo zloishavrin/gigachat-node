@@ -5,7 +5,12 @@
     "declaration": true,
     "outDir": "dist",
     "strict": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "types": ["node"],
+    "baseUrl": "./",
+    "paths": {
+      "@interfaces/*": ["src/interfaces/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules"]

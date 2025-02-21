@@ -1,11 +1,39 @@
-export interface IEmbeddingResponse {
-    object: string;
-    model: string;
-    data: IEmbedding[];
+/**
+ * Представляет один эмбеддинг в ответе.
+ */
+export interface IEmbedding {
+  /**
+   * Тип объекта (например, "embedding").
+   */
+  object: string;
+
+  /**
+   * Числовой массив эмбеддинга, представляющий векторное представление данных.
+   */
+  embedding: number[];
+
+  /**
+   * Индекс эмбеддинга в массиве.
+   */
+  index: number;
 }
 
-interface IEmbedding {
-    object: string;
-    embedding: number[];
-    index: number;
+/**
+ * Интерфейс ответа на запрос эмбеддингов.
+ */
+export interface IEmbeddingResponse {
+  /**
+   * Тип объекта (например, "embedding").
+   */
+  object: string;
+
+  /**
+   * Название модели, использованной для генерации эмбеддингов.
+   */
+  model: string;
+
+  /**
+   * Массив эмбеддингов, полученных в ответе.
+   */
+  data: IEmbedding[];
 }

@@ -1,5 +1,23 @@
+/**
+ * Интерфейс, представляющий сообщение в чате.
+ */
 export interface IMessage {
-    role: "user" | "assistant" | "system" | "search_result";
-    content: string;
-    image?: string;
+  /**
+   * Роль отправителя сообщения.
+   * - `user` — сообщение от пользователя.
+   * - `assistant` — сообщение от ассистента (ИИ).
+   * - `system` — системное сообщение.
+   * - `search_result` — результат поиска.
+   */
+  role: 'user' | 'assistant' | 'system' | 'search_result';
+
+  /**
+   * Текстовое содержимое сообщения.
+   */
+  content: string;
+
+  /**
+   * Опциональный параметр — ссылка на изображение, прикреплённое к сообщению.
+   */
+  image?: string;
 }
