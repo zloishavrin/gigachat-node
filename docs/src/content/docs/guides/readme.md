@@ -1,6 +1,6 @@
 ---
 title: GigaChatJS
-description: Начните работу.
+description: Начните работу c GigaChatAPI.
 ---
 
 # GigaChat API Library

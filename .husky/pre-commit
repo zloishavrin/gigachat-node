@@ -1,16 +1,19 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Install dep
+npm install
+
 # Lint&Prettier
 npx lint-staged
 
 # Обновление руководства из readme в документацию
-  # Удаление файла
-rm -f ./docs/src/content/docs/guides/readme.md
     # Добавление заголовка в README перед копированием
-echo "---\ntitle: GigaChatJS\ndescription: Начните работу.\n---\n\n$(cat ./readme.md)" > ./docs/src/content/docs/guides/readme.md
+echo "---\ntitle: GigaChatJS\ndescription: Начните работу c GigaChatAPI.\n---\n\n$(cat ./readme.md)" > ./docs/src/content/docs/guides/readme.md
+
+git add .
 
 # Билд документации
-cd ./docs && npm run build
+cd ./docs && npm install &&  npm run build
 
 git add .

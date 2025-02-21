@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionUsage"
 ---
 
-Defined in: [interfaces/completion.ts:81](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L81)
+Defined in: [interfaces/completion.ts:81](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/completion.ts#L81)
 
 Информация об использовании токенов в запросе и ответе.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/completion.ts:81](https://github.com/zloishavrin/gigacha
 
 > **completion\_tokens**: `number`
 
-Defined in: [interfaces/completion.ts:86](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L86)
+Defined in: [interfaces/completion.ts:86](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/completion.ts#L86)
 
 Количество токенов в сгенерированном ответе.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/completion.ts:86](https://github.com/zloishavrin/gigacha
 
 > **prompt\_tokens**: `number`
 
-Defined in: [interfaces/completion.ts:83](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L83)
+Defined in: [interfaces/completion.ts:83](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/completion.ts#L83)
 
 Количество токенов во входном запросе.
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/completion.ts:83](https://github.com/zloishavrin/gigacha
 
 > **total\_tokens**: `number`
 
-Defined in: [interfaces/completion.ts:89](https://github.com/zloishavrin/gigachat-node/blob/670ebd7ca25a68b6d6d10056ed14010dbca603ea/src/interfaces/completion.ts#L89)
+Defined in: [interfaces/completion.ts:89](https://github.com/zloishavrin/gigachat-node/blob/925fff59761a1b53e792218c29ac1afe5e64131c/src/interfaces/completion.ts#L89)
 
 Общее количество использованных токенов.

@@ -3,8 +3,8 @@ import starlight from '@astrojs/starlight';
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
 export default defineConfig({
-	site: 'https://zloishavrin.github.io',
-	base: '/gigachat-node',
+	site: 'https://zloishavrin.github.io/gigachat-node',
+	base: '/',
 	output: 'static',
 	integrations: [
 		starlight({
