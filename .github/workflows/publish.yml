@@ -32,7 +32,7 @@ jobs:
         run: jq 'del(.devDependencies, .scripts)' package.json > dist/package.json
 
       - name: Copy README to dist
-        run: cp README.md dist/README.md
+        run: cp readme.md dist/README.md
 
       - name: Publish to npm
         run: |

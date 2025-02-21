@@ -5,7 +5,7 @@ prev: false
 title: "ITokenResponse"
 ---
 
-Defined in: [interfaces/token.ts:4](https://github.com/zloishavrin/gigachat-node/blob/e0c7f2246045fd98c57115a30a64631c7a91f514/src/interfaces/token.ts#L4)
+Defined in: [interfaces/token.ts:4](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/token.ts#L4)
 
 Интерфейс, представляющий ответ с токеном доступа.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/token.ts:4](https://github.com/zloishavrin/gigachat-node
 
 > **access\_token**: `string`
 
-Defined in: [interfaces/token.ts:8](https://github.com/zloishavrin/gigachat-node/blob/e0c7f2246045fd98c57115a30a64631c7a91f514/src/interfaces/token.ts#L8)
+Defined in: [interfaces/token.ts:8](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/token.ts#L8)
 
 Строка токена доступа, используемого для аутентификации API-запросов.
 
@@ -25,6 +25,6 @@ Defined in: [interfaces/token.ts:8](https://github.com/zloishavrin/gigachat-node
 
 > **expires\_at**: `number`
 
-Defined in: [interfaces/token.ts:13](https://github.com/zloishavrin/gigachat-node/blob/e0c7f2246045fd98c57115a30a64631c7a91f514/src/interfaces/token.ts#L13)
+Defined in: [interfaces/token.ts:13](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/token.ts#L13)
 
 Временная метка (timestamp) истечения срока действия токена (в секундах с начала эпохи Unix).
