@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionResponse"
 ---
 
-Defined in: [src/interfaces/completion.ts:61](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/completion.ts#L61)
+Defined in: [src/interfaces/completion.ts:61](https://github.com/zloishavrin/gigachat-node/blob/26f9de5d8a18e285e01e1709464dd16c6a41b17d/src/interfaces/completion.ts#L61)
 
 Интерфейс ответа на запрос генерации текста (completion).
 
@@ -15,7 +15,7 @@ Defined in: [src/interfaces/completion.ts:61](https://github.com/zloishavrin/gig
 
 > **choices**: [`ICompletionChoice`](/gigachat-node/api/interfaces/completion/interfaces/icompletionchoice/)[]
 
-Defined in: [src/interfaces/completion.ts:75](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/completion.ts#L75)
+Defined in: [src/interfaces/completion.ts:75](https://github.com/zloishavrin/gigachat-node/blob/26f9de5d8a18e285e01e1709464dd16c6a41b17d/src/interfaces/completion.ts#L75)
 
 Список возможных вариантов ответа.
 
@@ -25,7 +25,7 @@ Defined in: [src/interfaces/completion.ts:75](https://github.com/zloishavrin/gig
 
 > **created**: `number`
 
-Defined in: [src/interfaces/completion.ts:63](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/completion.ts#L63)
+Defined in: [src/interfaces/completion.ts:63](https://github.com/zloishavrin/gigachat-node/blob/26f9de5d8a18e285e01e1709464dd16c6a41b17d/src/interfaces/completion.ts#L63)
 
 Временная метка создания ответа (в формате Unix timestamp).
 
@@ -35,7 +35,7 @@ Defined in: [src/interfaces/completion.ts:63](https://github.com/zloishavrin/gig
 
 > **model**: `string`
 
-Defined in: [src/interfaces/completion.ts:66](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/completion.ts#L66)
+Defined in: [src/interfaces/completion.ts:66](https://github.com/zloishavrin/gigachat-node/blob/26f9de5d8a18e285e01e1709464dd16c6a41b17d/src/interfaces/completion.ts#L66)
 
 Название модели, использованной для генерации.
 
@@ -45,7 +45,7 @@ Defined in: [src/interfaces/completion.ts:66](https://github.com/zloishavrin/gig
 
 > **object**: `string`
 
-Defined in: [src/interfaces/completion.ts:69](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/completion.ts#L69)
+Defined in: [src/interfaces/completion.ts:69](https://github.com/zloishavrin/gigachat-node/blob/26f9de5d8a18e285e01e1709464dd16c6a41b17d/src/interfaces/completion.ts#L69)
 
 Тип объекта ответа (обычно "text_completion").
 
@@ -55,6 +55,6 @@ Defined in: [src/interfaces/completion.ts:69](https://github.com/zloishavrin/gig
 
 > **usage**: [`ICompletionUsage`](/gigachat-node/api/interfaces/completion/interfaces/icompletionusage/)
 
-Defined in: [src/interfaces/completion.ts:72](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/completion.ts#L72)
+Defined in: [src/interfaces/completion.ts:72](https://github.com/zloishavrin/gigachat-node/blob/26f9de5d8a18e285e01e1709464dd16c6a41b17d/src/interfaces/completion.ts#L72)
 
 Информация об использовании токенов.
