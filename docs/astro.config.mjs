@@ -35,6 +35,13 @@ export default defineConfig({
 						{ label: 'Начать работу', slug: 'guides/readme' },
 					],
 				},
+				{
+					label: 'Примеры использоваения',
+					items: [
+						{ label: 'Телеграм-бот', slug: 'examples/tgbot'},
+						{ label: 'REST', slug: 'examples/rest' }
+					]
+				},
 				typeDocSidebarGroup,
 			],
 		}),

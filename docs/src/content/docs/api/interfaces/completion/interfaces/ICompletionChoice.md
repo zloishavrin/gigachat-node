@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionChoice"
 ---
 
-Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/ab12a14114f4a9c24b2f4232dc7bb8d894625e92/src/interfaces/completion.ts#L95)
+Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/completion.ts#L95)
 
 Один из вариантов ответа в completion-запросе.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/completion.ts:95](https://github.com/zloishavrin/gigacha
 
 > **finish\_reason**: `string`
 
-Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/ab12a14114f4a9c24b2f4232dc7bb8d894625e92/src/interfaces/completion.ts#L100)
+Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/completion.ts#L100)
 
 Причина завершения генерации (например, "stop" или "length").
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/completion.ts:100](https://github.com/zloishavrin/gigach
 
 > **index**: `number`
 
-Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/ab12a14114f4a9c24b2f4232dc7bb8d894625e92/src/interfaces/completion.ts#L97)
+Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/completion.ts#L97)
 
 Индекс данного варианта ответа в списке.
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/completion.ts:97](https://github.com/zloishavrin/gigacha
 
 > **message**: [`IMessage`](/gigachat-node/api/interfaces/message/interfaces/imessage/)
 
-Defined in: [interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/ab12a14114f4a9c24b2f4232dc7bb8d894625e92/src/interfaces/completion.ts#L103)
+Defined in: [interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/completion.ts#L103)
 
 Сгенерированное сообщение с ответом.

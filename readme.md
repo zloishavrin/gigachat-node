@@ -50,12 +50,12 @@ const GigaChat = require('gigachat-node').GigaChat;
 Создание экземпляра класса и получение токена доступа к API [(подробнее в документации)](https://developers.sber.ru/docs/ru/gigachat/api/authorization). Обратите внимание, что при получении CLIENT_SECRET необходимо копировать значение в Base64, иначе придется переводить самостоятельно ключ в Base64.
 
 ```js
-const client = new GigaChat(
-    clientSecretKey='CLIENT-SECRET-KEY', 
-    isIgnoreTSL=true,
-    isPersonal=true,
-    autoRefreshToken=true
-);
+const client = new GigaChat({
+    clientSecretKey: 'CLIENT-SECRET-KEY', 
+    isIgnoreTSL: true,
+    isPersonal: true,
+    autoRefreshToken: true
+});
 await client.createToken();
 ```
 | Аргумент конструктора | Характеристика |
@@ -174,10 +174,6 @@ const file = await client.uploadFile("path/to/file");
 console.log(file);
 ```
 
-## Примеры работы
-
-* [Телеграм-бот с GigaChat API](https://gitverse.ru/zloishavrin/gigachat-tg-bot)
-
 ## Отключение цензуры
 
 Отключение цензуры доступно только в том случае, если Вы пользуетесь GigaChat, как юридическое лицо. Далее следующий алгоритм:
@@ -206,5 +202,6 @@ console.log(file);
 |Настройка Prettier|☑️|
 |Автодокументирование|☑️|
 |Pre-Commit|☑️|
-|GH-Action для NPM-публикации||
+|GH-Action для NPM-публикации|☑️|
+|Примеры использования|☑️|
 |Переписать библиотеку на Fetch API| |
