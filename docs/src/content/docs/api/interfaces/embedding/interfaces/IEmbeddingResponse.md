@@ -5,7 +5,7 @@ prev: false
 title: "IEmbeddingResponse"
 ---
 
-Defined in: [src/interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat-node/blob/d9ff671dd4bbaa048a2c55a6dea62d3e75e84718/src/interfaces/embedding.ts#L24)
+Defined in: [src/interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/embedding.ts#L24)
 
 Интерфейс ответа на запрос эмбеддингов.
 
@@ -15,7 +15,7 @@ Defined in: [src/interfaces/embedding.ts:24](https://github.com/zloishavrin/giga
 
 > **data**: [`IEmbedding`](/gigachat-node/api/interfaces/embedding/interfaces/iembedding/)[]
 
-Defined in: [src/interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat-node/blob/d9ff671dd4bbaa048a2c55a6dea62d3e75e84718/src/interfaces/embedding.ts#L38)
+Defined in: [src/interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/embedding.ts#L38)
 
 Массив эмбеддингов, полученных в ответе.
 
@@ -25,7 +25,7 @@ Defined in: [src/interfaces/embedding.ts:38](https://github.com/zloishavrin/giga
 
 > **model**: `string`
 
-Defined in: [src/interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat-node/blob/d9ff671dd4bbaa048a2c55a6dea62d3e75e84718/src/interfaces/embedding.ts#L33)
+Defined in: [src/interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/embedding.ts#L33)
 
 Название модели, использованной для генерации эмбеддингов.
 
@@ -35,6 +35,6 @@ Defined in: [src/interfaces/embedding.ts:33](https://github.com/zloishavrin/giga
 
 > **object**: `string`
 
-Defined in: [src/interfaces/embedding.ts:28](https://github.com/zloishavrin/gigachat-node/blob/d9ff671dd4bbaa048a2c55a6dea62d3e75e84718/src/interfaces/embedding.ts#L28)
+Defined in: [src/interfaces/embedding.ts:28](https://github.com/zloishavrin/gigachat-node/blob/a3ef1dac096fdcd47d84b701e0fde0fae0da4fc8/src/interfaces/embedding.ts#L28)
 
 Тип объекта (например, "embedding").
