@@ -5,7 +5,7 @@ prev: false
 title: "IEmbedding"
 ---
 
-Defined in: [interfaces/embedding.ts:4](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L4)
+Defined in: [interfaces/embedding.ts:4](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/embedding.ts#L4)
 
 Представляет один эмбеддинг в ответе.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/embedding.ts:4](https://github.com/zloishavrin/gigachat-
 
 > **embedding**: `number`[]
 
-Defined in: [interfaces/embedding.ts:13](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L13)
+Defined in: [interfaces/embedding.ts:13](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/embedding.ts#L13)
 
 Числовой массив эмбеддинга, представляющий векторное представление данных.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/embedding.ts:13](https://github.com/zloishavrin/gigachat
 
 > **index**: `number`
 
-Defined in: [interfaces/embedding.ts:18](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L18)
+Defined in: [interfaces/embedding.ts:18](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/embedding.ts#L18)
 
 Индекс эмбеддинга в массиве.
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/embedding.ts:18](https://github.com/zloishavrin/gigachat
 
 > **object**: `string`
 
-Defined in: [interfaces/embedding.ts:8](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L8)
+Defined in: [interfaces/embedding.ts:8](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/embedding.ts#L8)
 
 Тип объекта (например, "embedding").

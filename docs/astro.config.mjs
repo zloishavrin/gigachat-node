@@ -4,7 +4,6 @@ import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
 export default defineConfig({
 	site: 'https://zloishavrin.github.io',
-	base: '/gigachat-node/docs/',
 	output: 'static',
 	integrations: [
 		starlight({

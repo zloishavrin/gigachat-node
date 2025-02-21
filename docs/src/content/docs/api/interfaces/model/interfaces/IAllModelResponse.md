@@ -5,7 +5,7 @@ prev: false
 title: "IAllModelResponse"
 ---
 
-Defined in: [interfaces/model.ts:24](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/model.ts#L24)
+Defined in: [interfaces/model.ts:24](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/model.ts#L24)
 
 Интерфейс, представляющий ответ, содержащий список доступных моделей.
 
@@ -13,9 +13,9 @@ Defined in: [interfaces/model.ts:24](https://github.com/zloishavrin/gigachat-nod
 
 ### data
 
-> **data**: [`IModelResponse`](/gigachat-node/docs/api/interfaces/model/interfaces/imodelresponse/)[]
+> **data**: [`IModelResponse`](/api/interfaces/model/interfaces/imodelresponse/)[]
 
-Defined in: [interfaces/model.ts:33](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/model.ts#L33)
+Defined in: [interfaces/model.ts:33](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/model.ts#L33)
 
 Список моделей.
 
@@ -25,6 +25,6 @@ Defined in: [interfaces/model.ts:33](https://github.com/zloishavrin/gigachat-nod
 
 > **object**: `string`
 
-Defined in: [interfaces/model.ts:28](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/model.ts#L28)
+Defined in: [interfaces/model.ts:28](https://github.com/zloishavrin/gigachat-node/blob/a8e16e8d2e86111167e3c06c8870408e59485c04/src/interfaces/model.ts#L28)
 
 Тип объекта (например, "list").
