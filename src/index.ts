@@ -3,7 +3,7 @@ import { createWriteStream } from 'fs';
 import { Agent } from 'https';
 import { Readable } from 'stream';
 
-import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
+import axios, { AxiosResponse, isAxiosError } from 'axios';
 
 import { ICompletionRequest, ICompletionResponse } from '@interfaces/completion';
 import { GigaChatConfig } from '@interfaces/config';
@@ -15,6 +15,7 @@ import { ITokenResponse } from '@interfaces/token';
 
 import { FormDataBuilder } from './utils/FormDataBuilder';
 import { FormDataFile } from './utils/FormDataFile';
+import { GigaChatError } from './utils/GigaChatError';
 type StreamResponse = Readable;
 
 /**
@@ -201,25 +202,40 @@ class GigaChat {
   /**
    * Обработка ошибки
    * @param {any} error Ошибка.
-   * @param {any} currentFunction Функция, которую надо выполнить, если проблема была в токенах и она решилась.
+   * @param {() => Promise<AxiosResponse<any>>} currentFunction Функция, которую надо выполнить, если проблема была в токенах и она решилась.
    * @returns {Promise<any>} Результат выполнения currentFunction().
+   * @throws {GigaChatError} Специфичная ошибка API
    */
-  private async handlingError(error: any, currentFunction: any): Promise<any> {
-    if (
-      isAxiosError(error) &&
-      this.autoRefreshToken &&
-      error.response?.data?.message === 'Token has expired'
-    ) {
-      try {
-        await this.createToken();
-        const responce = await currentFunction();
-        return responce.data;
-      } catch (error) {
-        throw new Error(`GigaChat Error (create completion):\n${error}`);
+  private async handlingError(
+    error: any,
+    currentFunction: () => Promise<AxiosResponse<any>>,
+  ): Promise<any> {
+    if (isAxiosError(error)) {
+      const status = error.response?.status;
+      const errorData = error.response?.data;
+
+      if (status === 401) {
+        if (this.autoRefreshToken) {
+          await this.createToken();
+          return currentFunction();
+        }
+        throw new GigaChatError('Authorization token expired', 'AUTH_EXPIRED');
       }
-    } else {
-      throw new Error(error);
+
+      if (status === 400) {
+        throw new GigaChatError(`Validation error: ${errorData?.message}`, 'VALIDATION_ERROR');
+      }
+
+      if (typeof status === 'number' && status >= 500) {
+        throw new GigaChatError('Internal server error', 'SERVER_ERROR');
+      }
     }
+
+    if (error.code === 'ECONNABORTED') {
+      throw new GigaChatError('Request timeout', 'TIMEOUT');
+    }
+
+    throw new GigaChatError(`Unknown error: ${error.message}`, 'UNKNOWN_ERROR');
   }
 
   /**
@@ -251,7 +267,10 @@ class GigaChat {
       this.authorization = responce.data.access_token;
       return responce.data;
     } catch (error) {
-      throw new Error(`GigaChat Error (create authorization token):\n${error}`);
+      if (isAxiosError(error)) {
+        throw new GigaChatError(`Unknown error (create token): ${error.message}`, 'UNKNOWN_ERROR');
+      }
+      throw new Error(`Unknown error (create token): ${error}`);
     }
   }
 
@@ -303,7 +322,7 @@ class GigaChat {
         return response.data;
       }
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.post(path, data);
       });
     }
@@ -321,7 +340,7 @@ class GigaChat {
       const response = await this.post(path, streamData, true);
       return response.data;
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.post(path, streamData, true);
       });
     }
@@ -337,7 +356,7 @@ class GigaChat {
       const responce = await this.get(path);
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.get(path);
       });
     }
@@ -354,7 +373,7 @@ class GigaChat {
       const responce = await this.get(path);
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.get(path);
       });
     }
@@ -371,7 +390,7 @@ class GigaChat {
       const responce = await this.post(path, { model: 'Embeddings', input: input });
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.post(path, { input: input });
       });
     }
@@ -389,7 +408,7 @@ class GigaChat {
       const responce = await this.post(path, { model, input });
       return responce.data;
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.post(path, { model, input });
       });
     }
@@ -406,7 +425,7 @@ class GigaChat {
       const response = await this.postFiles(pathToFile, purpose);
       return response.data;
     } catch (error) {
-      return await this.handlingError(error as AxiosError, async () => {
+      return await this.handlingError(error, async () => {
         return await this.postFiles(pathToFile, purpose);
       });
     }
