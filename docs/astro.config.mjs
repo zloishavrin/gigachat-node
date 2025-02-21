@@ -3,6 +3,8 @@ import starlight from '@astrojs/starlight';
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
 export default defineConfig({
+	site: 'https://zloishavrin.github.io/gigachat-node/docs/dist',
+	base: 'https://github.com/zloishavrin/gigachat-node',
 	integrations: [
 		starlight({
 			title: 'GigaChatJS',

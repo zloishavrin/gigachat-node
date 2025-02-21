@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionRequest"
 ---
 
-Defined in: [interfaces/completion.ts:6](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L6)
+Defined in: [interfaces/completion.ts:6](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L6)
 
 Интерфейс запроса на генерацию текста (completion).
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/completion.ts:6](https://github.com/zloishavrin/gigachat
 
 > `optional` **max\_tokens**: `number`
 
-Defined in: [interfaces/completion.ts:37](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L37)
+Defined in: [interfaces/completion.ts:37](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L37)
 
 Максимальное количество токенов в ответе.
 Если не указано, используется значение по умолчанию модели.
@@ -24,9 +24,9 @@ Defined in: [interfaces/completion.ts:37](https://github.com/zloishavrin/gigacha
 
 ### messages
 
-> **messages**: [`IMessage`](/api/interfaces/message/interfaces/imessage/)[]
+> **messages**: [`IMessage`](/https:/github.com/zloishavrin/gigachat-node/api/interfaces/message/interfaces/imessage/)[]
 
-Defined in: [interfaces/completion.ts:11](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L11)
+Defined in: [interfaces/completion.ts:11](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L11)
 
 Массив сообщений, на основе которых будет сформирован ответ.
 
@@ -36,7 +36,7 @@ Defined in: [interfaces/completion.ts:11](https://github.com/zloishavrin/gigacha
 
 > **model**: `string`
 
-Defined in: [interfaces/completion.ts:8](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L8)
+Defined in: [interfaces/completion.ts:8](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L8)
 
 Название модели, которая будет использоваться для генерации.
 
@@ -46,7 +46,7 @@ Defined in: [interfaces/completion.ts:8](https://github.com/zloishavrin/gigachat
 
 > `optional` **n**: `number`
 
-Defined in: [interfaces/completion.ts:31](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L31)
+Defined in: [interfaces/completion.ts:31](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L31)
 
 Количество альтернативных ответов, которые должны быть сгенерированы.
 
@@ -62,7 +62,7 @@ Defined in: [interfaces/completion.ts:31](https://github.com/zloishavrin/gigacha
 
 > `optional` **profanity\_check**: `boolean`
 
-Defined in: [interfaces/completion.ts:55](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L55)
+Defined in: [interfaces/completion.ts:55](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L55)
 
 Флаг проверки ненормативной лексики в сгенерированном тексте.
 
@@ -78,7 +78,7 @@ false
 
 > `optional` **repetition\_penalty**: `number`
 
-Defined in: [interfaces/completion.ts:43](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L43)
+Defined in: [interfaces/completion.ts:43](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L43)
 
 Коэффициент штрафа за повторение слов или фраз.
 Чем выше значение, тем меньше модель склонна повторяться.
@@ -89,7 +89,7 @@ Defined in: [interfaces/completion.ts:43](https://github.com/zloishavrin/gigacha
 
 > `optional` **temperature**: `number`
 
-Defined in: [interfaces/completion.ts:18](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L18)
+Defined in: [interfaces/completion.ts:18](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L18)
 
 Температура генерации (чем выше значение, тем более случайными будут ответы).
 Значение должно быть от 0 до 1.
@@ -106,7 +106,7 @@ Defined in: [interfaces/completion.ts:18](https://github.com/zloishavrin/gigacha
 
 > `optional` **top\_p**: `number`
 
-Defined in: [interfaces/completion.ts:25](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L25)
+Defined in: [interfaces/completion.ts:25](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L25)
 
 Альтернативный параметр управления случайностью выборки токенов.
 Используется вместо `temperature`, если задано.
@@ -118,7 +118,7 @@ Defined in: [interfaces/completion.ts:25](https://github.com/zloishavrin/gigacha
 
 > `optional` **update\_interval**: `number`
 
-Defined in: [interfaces/completion.ts:49](https://github.com/zloishavrin/gigachat-node/blob/270933ae05273d48ca8af76e918911b717056515/src/interfaces/completion.ts#L49)
+Defined in: [interfaces/completion.ts:49](https://github.com/zloishavrin/gigachat-node/blob/73ed16d3e69f1a2db708863e616d3d5cae700e52/src/interfaces/completion.ts#L49)
 
 Интервал обновления потока данных (в миллисекундах).
 Используется в потоковом режиме.
