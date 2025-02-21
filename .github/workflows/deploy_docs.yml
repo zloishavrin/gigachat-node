@@ -1,0 +1,40 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Настройка Node.js (если используете Node.js)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./docs
+
+      - name: Update readme documentation
+        run: |
+          rm -f ./docs/src/content/docs/guides/readme.md
+          echo "---\ntitle: GigaChatJS\ndescription: Начните работу.\n---\n\n$(cat ./readme.md)" > ./docs/src/content/docs/guides/readme.md
+
+      - name: Build documentation
+        run: npm run build
+        working-directory: ./docs
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./docs/dist
+          publish_branch: gh-pages
