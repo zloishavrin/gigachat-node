@@ -5,7 +5,7 @@ prev: false
 title: "IEmbeddingResponse"
 ---
 
-Defined in: [interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat-node/blob/f25a86f1770423d71faa95c74f454becf19f6c6c/src/interfaces/embedding.ts#L24)
+Defined in: [interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L24)
 
 Интерфейс ответа на запрос эмбеддингов.
 
@@ -13,9 +13,9 @@ Defined in: [interfaces/embedding.ts:24](https://github.com/zloishavrin/gigachat
 
 ### data
 
-> **data**: [`IEmbedding`](/gigachat-node/docs/dist/api/interfaces/embedding/interfaces/iembedding/)[]
+> **data**: [`IEmbedding`](/gigachat-node/docs/api/interfaces/embedding/interfaces/iembedding/)[]
 
-Defined in: [interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat-node/blob/f25a86f1770423d71faa95c74f454becf19f6c6c/src/interfaces/embedding.ts#L38)
+Defined in: [interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L38)
 
 Массив эмбеддингов, полученных в ответе.
 
@@ -25,7 +25,7 @@ Defined in: [interfaces/embedding.ts:38](https://github.com/zloishavrin/gigachat
 
 > **model**: `string`
 
-Defined in: [interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat-node/blob/f25a86f1770423d71faa95c74f454becf19f6c6c/src/interfaces/embedding.ts#L33)
+Defined in: [interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L33)
 
 Название модели, использованной для генерации эмбеддингов.
 
@@ -35,6 +35,6 @@ Defined in: [interfaces/embedding.ts:33](https://github.com/zloishavrin/gigachat
 
 > **object**: `string`
 
-Defined in: [interfaces/embedding.ts:28](https://github.com/zloishavrin/gigachat-node/blob/f25a86f1770423d71faa95c74f454becf19f6c6c/src/interfaces/embedding.ts#L28)
+Defined in: [interfaces/embedding.ts:28](https://github.com/zloishavrin/gigachat-node/blob/6da600b42ccae098cf918eab832f5d434d83a47e/src/interfaces/embedding.ts#L28)
 
 Тип объекта (например, "embedding").
