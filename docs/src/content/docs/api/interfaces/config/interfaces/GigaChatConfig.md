@@ -5,7 +5,7 @@ prev: false
 title: "GigaChatConfig"
 ---
 
-Defined in: [interfaces/config.ts:4](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L4)
+Defined in: [interfaces/config.ts:4](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L4)
 
 Конфигурационный интерфейс для настройки GigaChat.
 
@@ -15,7 +15,7 @@ Defined in: [interfaces/config.ts:4](https://github.com/zloishavrin/gigachat-nod
 
 > `optional` **autoRefreshToken**: `boolean`
 
-Defined in: [interfaces/config.ts:30](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L30)
+Defined in: [interfaces/config.ts:30](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L30)
 
 Автоматически ли обновлять токен при его истечении.
 `true` — токен будет обновляться автоматически.
@@ -32,7 +32,7 @@ true
 
 > **clientSecretKey**: `string`
 
-Defined in: [interfaces/config.ts:8](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L8)
+Defined in: [interfaces/config.ts:8](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L8)
 
 Секретный ключ клиента, используемый для аутентификации.
 
@@ -42,7 +42,7 @@ Defined in: [interfaces/config.ts:8](https://github.com/zloishavrin/gigachat-nod
 
 > `optional` **imgOn**: `boolean`
 
-Defined in: [interfaces/config.ts:37](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L37)
+Defined in: [interfaces/config.ts:37](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L37)
 
 Включена ли обработка изображений в ответах.
 Если `true`, изображения будут сохраняться.
@@ -59,7 +59,7 @@ true
 
 > `optional` **imgPath**: `string`
 
-Defined in: [interfaces/config.ts:44](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L44)
+Defined in: [interfaces/config.ts:44](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L44)
 
 Путь для сохранения изображений, полученных в ответе.
 По умолчанию используется текущая директория.
@@ -76,7 +76,7 @@ Defined in: [interfaces/config.ts:44](https://github.com/zloishavrin/gigachat-no
 
 > `optional` **isIgnoreTSL**: `boolean`
 
-Defined in: [interfaces/config.ts:16](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L16)
+Defined in: [interfaces/config.ts:16](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L16)
 
 Игнорировать ли проверку TLS (SSL-сертификатов).
 `true` — проверка отключена (используется для обхода проблем с сертификатами).
@@ -94,7 +94,7 @@ true
 
 > `optional` **isPersonal**: `boolean`
 
-Defined in: [interfaces/config.ts:23](https://github.com/zloishavrin/gigachat-node/blob/faf651dc8ae98db0ac572e12a2d3d7bf36dd2ff3/src/interfaces/config.ts#L23)
+Defined in: [interfaces/config.ts:23](https://github.com/zloishavrin/gigachat-node/blob/d189086914c2675e167ddaa294abadc9d850de3a/src/interfaces/config.ts#L23)
 
 Используется ли персональный доступ (Personal API).
 `true` — персональный доступ, `false` — корпоративный.

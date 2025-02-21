@@ -48,7 +48,6 @@ const main = async () => {
       // Проверка на пустой ответ
       if (!response || !response.choices || response.choices.length === 0) {
         bot.sendMessage(chatId, 'Произошла ошибка при обработке запроса.');
-        logger.error(`Error: Empty response from GigaChat for message: ${messageText}`);
         return;
       }
 
@@ -60,7 +59,6 @@ const main = async () => {
     catch (error) {
       // Обработка ошибок при запросе к GigaChat
       bot.sendMessage(chatId, 'Произошла ошибка при общении с GigaChat. Попробуйте снова позже.');
-      logger.error(`Error during GigaChat request: ${error.message}`);
     }
   });
 }

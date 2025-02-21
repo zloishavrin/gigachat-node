@@ -1,10 +1,9 @@
-import { createReadStream, createWriteStream } from 'fs';
+import { randomUUID } from 'crypto';
+import { createWriteStream } from 'fs';
 import { Agent } from 'https';
 import { Readable } from 'stream';
 
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
-import * as FormData from 'form-data';
-import { v4 as uuidv4 } from 'uuid';
 
 import { ICompletionRequest, ICompletionResponse } from '@interfaces/completion';
 import { GigaChatConfig } from '@interfaces/config';
@@ -13,6 +12,9 @@ import { IFile } from '@interfaces/file';
 import { IAllModelResponse, IModelResponse } from '@interfaces/model';
 import { ISummarizeResponse } from '@interfaces/summarize';
 import { ITokenResponse } from '@interfaces/token';
+
+import { FormDataBuilder } from './utils/FormDataBuilder';
+import { FormDataFile } from './utils/FormDataFile';
 type StreamResponse = Readable;
 
 /**
@@ -161,14 +163,17 @@ class GigaChat {
    * @returns {Promise<AxiosResponse<IFile>>} Ответ API.
    */
   private async postFiles(pathToFile: string, purpose: string): Promise<AxiosResponse<IFile>> {
-    const data = new FormData();
-    data.append('purpose', purpose);
-    data.append('file', createReadStream(pathToFile));
-    const response = await axios.post(`${this.url}/files`, data, {
+    const file = new FormDataFile(pathToFile);
+    const formData = new FormDataBuilder();
+
+    formData.appendField('purpose', purpose);
+    formData.appendFile('file', file);
+
+    const response = await axios.post(`${this.url}/files`, formData.getBody(), {
       headers: {
         Authorization: `Bearer ${this.authorization}`,
         Accept: 'application/json',
-        ...data.getHeaders(),
+        ...formData.getHeaders(),
       },
       httpsAgent: new Agent({
         rejectUnauthorized: !this.isIgnoreTSL,
@@ -223,7 +228,7 @@ class GigaChat {
    */
   public async createToken(): Promise<ITokenResponse> {
     try {
-      const requestUID = uuidv4();
+      const requestUID = randomUUID();
       const data = new URLSearchParams();
 
       if (this.isPersonal) {
@@ -264,7 +269,7 @@ class GigaChat {
         const imageId = this.extractImageSource(completionContent);
         if (imageId) {
           try {
-            const imagePath = `${this.imgPath}/${uuidv4()}.jpg`;
+            const imagePath = `${this.imgPath}/${randomUUID()}.jpg`;
             const imageStream = createWriteStream(imagePath);
             const transformStream = new Readable();
             transformStream._read = () => {};
