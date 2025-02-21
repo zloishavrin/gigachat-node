@@ -31,6 +31,9 @@ jobs:
       - name: Copy package.json to dist
         run: jq 'del(.devDependencies, .scripts)' package.json > dist/package.json
 
+      - name: Copy README to dist
+        run: jq 'del(.devDependencies, .scripts)' readme.md > dist/readme.md
+
       - name: Publish to npm
         run: |
           cd dist
