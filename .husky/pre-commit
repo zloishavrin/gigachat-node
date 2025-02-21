@@ -11,8 +11,6 @@ npx lint-staged
     # Добавление заголовка в README перед копированием
 echo "---\ntitle: GigaChatJS\ndescription: Начните работу c GigaChatAPI.\n---\n\n$(cat ./readme.md)" > ./docs/src/content/docs/guides/readme.md
 
-git add .
-
 # Билд документации
 cd ./docs && npm install &&  npm run build
 
