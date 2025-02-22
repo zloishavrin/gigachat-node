@@ -53,6 +53,16 @@ export interface ICompletionRequest {
    * @default false
    */
   profanity_check?: boolean;
+
+  /**
+   * Поле, которое отвечает за то, как GigaChat будет работать с функциями.
+   */
+  function_call?: any;
+
+  /**
+   * Массив с описанием пользовательских функций.
+   */
+  functions?: [any];
 }
 
 /**

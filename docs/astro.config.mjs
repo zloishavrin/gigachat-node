@@ -33,9 +33,12 @@ export default defineConfig({
       ],
 			sidebar: [
 				{
-					label: 'Начать работу',
+					label: 'Руководство',
 					items: [
 						{ label: 'Начать работу', slug: 'guides/readme' },
+						{ label: 'Генерация изображений', slug: 'guides/image' },
+						{ label: 'GigaChat Vision', slug: 'guides/vision' },
+						{ label: 'Отключение цензуры', slug: 'guides/censored' }
 					],
 				},
 				{

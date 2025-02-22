@@ -90,12 +90,16 @@ export class HTTPClient {
           resolve(transformStream);
         } else {
           let rawData = '';
-          result.on('data', (chunk) => (rawData += chunk));
+
+          result.on('data', (chunk) => {
+            rawData += chunk;
+          });
           result.on('end', () => {
             try {
-              resolve(JSON.parse(rawData));
+              const parseData = JSON.parse(rawData);
+              resolve(parseData);
             } catch (error) {
-              reject(new Error('Failed to parse response JSON'));
+              resolve(rawData);
             }
           });
         }

@@ -38,3 +38,18 @@ export interface IFile {
    */
   access_policy?: 'private' | 'public';
 }
+
+/**
+ * Ответ на запрос на удаление файла.
+ */
+export interface IFileDeleteResponse {
+  /**
+   * Уникальный идентификатор файла.
+   */
+  id: string;
+
+  /**
+   * Признак удаления файла.
+   */
+  deleted: boolean;
+}

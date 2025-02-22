@@ -1,12 +1,13 @@
 import { randomUUID } from 'crypto';
-import { createWriteStream } from 'fs';
 import { Agent, RequestOptions } from 'https';
 import { Readable } from 'stream';
 
+import { IBalanceResponse } from '@interfaces/balance';
 import { ICompletionRequest, ICompletionResponse } from '@interfaces/completion';
 import { GigaChatConfig } from '@interfaces/config';
 import { IEmbeddingResponse } from '@interfaces/embedding';
-import { IFile } from '@interfaces/file';
+import { IExtractImage } from '@interfaces/extract';
+import { IFile, IFileDeleteResponse } from '@interfaces/file';
 import { IAllModelResponse } from '@interfaces/model';
 import { ISummarizeResponse } from '@interfaces/summarize';
 import { ITokenResponse } from '@interfaces/token';
@@ -55,11 +56,6 @@ class GigaChat {
   private imgOn: boolean;
 
   /**
-   * Путь для сохранения загруженных изображений.
-   */
-  private imgPath: string;
-
-  /**
    * Основной URL API GigaChat.
    */
   private url: string = 'https://gigachat.devices.sberbank.ru/api/v1';
@@ -89,56 +85,29 @@ class GigaChat {
     isPersonal = true,
     autoRefreshToken = true,
     imgOn = true,
-    imgPath = '.',
   }: GigaChatConfig) {
     this.clientSecretKey = clientSecretKey;
     this.isIgnoreTSL = isIgnoreTSL;
     this.isPersonal = isPersonal;
     this.autoRefreshToken = autoRefreshToken;
-    (this.imgOn = imgOn), (this.imgPath = imgPath);
+    this.imgOn = imgOn;
 
     this.httpClient = new HTTPClient(this.url, undefined, this.isIgnoreTSL);
   }
 
   /**
-   * Получает изображение по его ID.
-   * @param {string} imageId Идентификатор изображения.
-   * @returns {Promise<Readable>} Ответ API с изображением.
-   */
-  private async getImage(imageId: string): Promise<Readable> {
-    const url = new URL(`${this.url}/files/${imageId}/content`);
-    const options: RequestOptions = {
-      hostname: url.hostname,
-      path: url.pathname + url.search,
-      port: url.port || 443,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${this.authorization}`,
-        Accept: 'application/jpg',
-      },
-      agent: new Agent({
-        rejectUnauthorized: !this.isIgnoreTSL,
-      }),
-    };
-
-    try {
-      const response = await this.httpClient.makeRequest(options, '', 0, true);
-      return response;
-    } catch (error) {
-      throw new GigaChatError(`Failed to fetch image: ${error}`, 'IMAGE_FETCH_ERROR');
-    }
-  }
-
-  /**
    * Извлекает URL изображения из ответа модели.
    * @param {string} completionContent Содержимое ответа.
-   * @returns {string | null} URL изображения.
+   * @returns {IExtractImage | null} Результат извлечения изображения.
    */
-  private extractImageSource(completionContent: string): string | null {
+  private extractImageSource(completionContent: string): IExtractImage | null {
     const imgTagRegex = /<img[^>]+src\s*=\s*['"]([^'"]+)['"][^>]*>/;
     const match = completionContent.match(imgTagRegex);
     if (match) {
-      return match[1];
+      return {
+        imageId: match[1],
+        text: completionContent.replace(imgTagRegex, ''),
+      };
     } else {
       return null;
     }
@@ -251,44 +220,19 @@ class GigaChat {
     const path = '/chat/completions';
     try {
       const response = await this.httpClient.post(path, data);
-      const completionContent = response.choices[0].message.content;
-      if (this.imgOn) {
-        const imageId = this.extractImageSource(completionContent);
-        if (imageId) {
-          try {
-            const imagePath = `${this.imgPath}/${randomUUID()}.jpg`;
-            const imageStream = createWriteStream(imagePath);
-            const transformStream = new Readable();
-            transformStream._read = () => {};
 
-            const imageResponse = await this.getImage(imageId);
-
-            await new Promise<void>((resolve, reject) => {
-              imageResponse.on('data', (chunk: any) => transformStream.push(chunk));
-              imageResponse.on('end', () => {
-                transformStream.push(null);
-                transformStream.pipe(imageStream);
-                transformStream.on('end', () => {
-                  imageStream.end();
-                  imageStream.on('finish', () => {
-                    response.choices[0].message['image'] = imagePath;
-                    resolve();
-                  });
-                });
-              });
-              imageResponse.on('error', reject);
-            });
-
-            return response;
-          } catch (error) {
-            throw new Error(`Ошибка при сохранении файла: ${error}`);
+      for (let index = 0; index < response.choices.length; index++) {
+        const completionContent = response.choices[index].message.content;
+        if (this.imgOn) {
+          const extractedResult = this.extractImageSource(completionContent);
+          if (extractedResult) {
+            response.choices[index].message.image = extractedResult.imageId;
+            response.choices[index].message.content = extractedResult.text;
           }
-        } else {
-          return response;
         }
-      } else {
-        return response;
       }
+
+      return response;
     } catch (error) {
       return await this.handlingError<ICompletionResponse>(error, async () => {
         return await this.httpClient.post(path, data);
@@ -378,6 +322,84 @@ class GigaChat {
     } catch (error) {
       return await this.handlingError<IFile>(error, async () => {
         return await this.httpClient.postFiles(pathToFile, purpose);
+      });
+    }
+  }
+
+  /**
+   * Получение списка доступных файлов.
+   * @returns {Promise<IFile[]>} Массив объектов с информацией о доступных файлах.
+   */
+  public async getAllFiles(): Promise<IFile[]> {
+    const path = '/files';
+    try {
+      const response = await this.httpClient.get(path);
+      return response;
+    } catch (error) {
+      return await this.handlingError<IFile[]>(error, async () => {
+        return await this.httpClient.get(path);
+      });
+    }
+  }
+
+  /**
+   * Получение информации о файле по идентификатору.
+   * @param {string} fileId - Идентификатор файла.
+   * @returns {Promise<IFile>} Объект с информацией о файле.
+   */
+  public async getFileInfo(fileId: string): Promise<IFile> {
+    const path = `/files/${fileId}`;
+    try {
+      const response = await this.httpClient.get(path);
+      return response;
+    } catch (error) {
+      return await this.handlingError<IFile>(error, async () => {
+        return await this.httpClient.get(path);
+      });
+    }
+  }
+
+  /**
+   * Удаление файла по идентификатору.
+   * @param {string} fileId - Идентификатор файла.
+   * @returns {Promise<IFileDeleteResponse>} Ответ сервера.
+   */
+  public async deleteFile(fileId: string): Promise<IFileDeleteResponse> {
+    const path = `/files/${fileId}/delete`;
+    try {
+      const response = await this.httpClient.post(path, {});
+      return response;
+    } catch (error) {
+      return await this.handlingError<IFileDeleteResponse>(error, async () => {
+        return await this.httpClient.post(path, {});
+      });
+    }
+  }
+
+  /**
+   * Получение баланса токенов по всем моделям.
+   * @returns {Promise<IBalanceResponse>} Ответ сервера с информацией о балансе.
+   */
+  public async getBalance(): Promise<IBalanceResponse> {
+    const path = '/balance';
+    try {
+      const response = await this.httpClient.get(path);
+      return response;
+    } catch (error) {
+      return await this.handlingError<IBalanceResponse>(error, async () => {
+        return await this.httpClient.get(path);
+      });
+    }
+  }
+
+  public async downloadFile(fileId: string): Promise<any> {
+    const path = `/files/${fileId}/content`;
+    try {
+      const response = await this.httpClient.get(path);
+      return response;
+    } catch (error) {
+      return await this.handlingError<any>(error, async () => {
+        return await this.httpClient.get(path);
       });
     }
   }

@@ -5,7 +5,7 @@ prev: false
 title: "ICompletionChoice"
 ---
 
-Defined in: [src/interfaces/completion.ts:95](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/interfaces/completion.ts#L95)
+Defined in: [src/interfaces/completion.ts:105](https://github.com/zloishavrin/gigachat-node/blob/a69ec788472547a03123bbdeeaac3f6751954bc6/src/interfaces/completion.ts#L105)
 
 Один из вариантов ответа в completion-запросе.
 
@@ -15,7 +15,7 @@ Defined in: [src/interfaces/completion.ts:95](https://github.com/zloishavrin/gig
 
 > **finish\_reason**: `string`
 
-Defined in: [src/interfaces/completion.ts:100](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/interfaces/completion.ts#L100)
+Defined in: [src/interfaces/completion.ts:110](https://github.com/zloishavrin/gigachat-node/blob/a69ec788472547a03123bbdeeaac3f6751954bc6/src/interfaces/completion.ts#L110)
 
 Причина завершения генерации (например, "stop" или "length").
 
@@ -25,7 +25,7 @@ Defined in: [src/interfaces/completion.ts:100](https://github.com/zloishavrin/gi
 
 > **index**: `number`
 
-Defined in: [src/interfaces/completion.ts:97](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/interfaces/completion.ts#L97)
+Defined in: [src/interfaces/completion.ts:107](https://github.com/zloishavrin/gigachat-node/blob/a69ec788472547a03123bbdeeaac3f6751954bc6/src/interfaces/completion.ts#L107)
 
 Индекс данного варианта ответа в списке.
 
@@ -35,6 +35,6 @@ Defined in: [src/interfaces/completion.ts:97](https://github.com/zloishavrin/gig
 
 > **message**: [`IMessage`](/gigachat-node/api/interfaces/message/interfaces/imessage/)
 
-Defined in: [src/interfaces/completion.ts:103](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/interfaces/completion.ts#L103)
+Defined in: [src/interfaces/completion.ts:113](https://github.com/zloishavrin/gigachat-node/blob/a69ec788472547a03123bbdeeaac3f6751954bc6/src/interfaces/completion.ts#L113)
 
 Сгенерированное сообщение с ответом.
