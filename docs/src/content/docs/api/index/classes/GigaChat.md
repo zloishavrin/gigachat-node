@@ -5,7 +5,7 @@ prev: false
 title: "GigaChat"
 ---
 
-Defined in: [src/index.ts:24](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L24)
+Defined in: [src/index.ts:21](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L21)
 
 Класс для взаимодействия с API GigaChat.
 Позволяет выполнять авторизацию, отправлять запросы к модели, загружать файлы и работать с потоками данных.
@@ -16,7 +16,7 @@ Defined in: [src/index.ts:24](https://github.com/zloishavrin/gigachat-node/blob/
 
 > **new GigaChat**(`config`): [`GigaChat`](/gigachat-node/api/index/classes/gigachat/)
 
-Defined in: [src/index.ts:84](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L84)
+Defined in: [src/index.ts:86](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L86)
 
 Создает новый экземпляр GigaChat.
 
@@ -38,7 +38,7 @@ Defined in: [src/index.ts:84](https://github.com/zloishavrin/gigachat-node/blob/
 
 > **authorization**: `undefined` \| `string`
 
-Defined in: [src/index.ts:28](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L28)
+Defined in: [src/index.ts:30](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L30)
 
 Токен авторизации для API.
 
@@ -48,7 +48,7 @@ Defined in: [src/index.ts:28](https://github.com/zloishavrin/gigachat-node/blob/
 
 > **allModels**(): `Promise`\<[`IAllModelResponse`](/gigachat-node/api/interfaces/model/interfaces/iallmodelresponse/)\>
 
-Defined in: [src/index.ts:348](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L348)
+Defined in: [src/index.ts:321](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L321)
 
 Получает список всех моделей.
 
@@ -64,7 +64,7 @@ Defined in: [src/index.ts:348](https://github.com/zloishavrin/gigachat-node/blob
 
 > **completion**(`data`): `Promise`\<[`ICompletionResponse`](/gigachat-node/api/interfaces/completion/interfaces/icompletionresponse/)\>
 
-Defined in: [src/index.ts:277](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L277)
+Defined in: [src/index.ts:250](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L250)
 
 Отправляет запрос на завершение чата.
 
@@ -88,7 +88,7 @@ Defined in: [src/index.ts:277](https://github.com/zloishavrin/gigachat-node/blob
 
 > **completionStream**(`data`): `Promise`\<`Readable`\>
 
-Defined in: [src/index.ts:331](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L331)
+Defined in: [src/index.ts:304](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L304)
 
 Отправляет потоковый запрос на завершение чата.
 
@@ -112,7 +112,7 @@ Defined in: [src/index.ts:331](https://github.com/zloishavrin/gigachat-node/blob
 
 > **createToken**(): `Promise`\<[`ITokenResponse`](/gigachat-node/api/interfaces/token/interfaces/itokenresponse/)\>
 
-Defined in: [src/index.ts:240](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L240)
+Defined in: [src/index.ts:199](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L199)
 
 Создает новый токен доступа.
 
@@ -128,7 +128,7 @@ Defined in: [src/index.ts:240](https://github.com/zloishavrin/gigachat-node/blob
 
 > **embedding**(`input`): `Promise`\<[`IEmbeddingResponse`](/gigachat-node/api/interfaces/embedding/interfaces/iembeddingresponse/)\>
 
-Defined in: [src/index.ts:382](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L382)
+Defined in: [src/index.ts:338](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L338)
 
 Выполняет embedding запроса.
 
@@ -148,35 +148,11 @@ Defined in: [src/index.ts:382](https://github.com/zloishavrin/gigachat-node/blob
 
 ***
 
-### model()
-
-> **model**(`modelName`): `Promise`\<[`IModelResponse`](/gigachat-node/api/interfaces/model/interfaces/imodelresponse/)\>
-
-Defined in: [src/index.ts:365](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L365)
-
-Получает информацию о конкретной модели.
-
-#### Parameters
-
-##### modelName
-
-`string`
-
-Название модели.
-
-#### Returns
-
-`Promise`\<[`IModelResponse`](/gigachat-node/api/interfaces/model/interfaces/imodelresponse/)\>
-
-Ответ сервера с данными модели.
-
-***
-
 ### summarize()
 
 > **summarize**(`model`, `input`): `Promise`\<[`ISummarizeResponse`](/gigachat-node/api/interfaces/summarize/interfaces/isummarizeresponse/)[]\>
 
-Defined in: [src/index.ts:400](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L400)
+Defined in: [src/index.ts:356](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L356)
 
 Подсчитывает количество токенов в тексте.
 
@@ -206,7 +182,7 @@ Defined in: [src/index.ts:400](https://github.com/zloishavrin/gigachat-node/blob
 
 > **uploadFile**(`pathToFile`, `purpose`?): `Promise`\<[`IFile`](/gigachat-node/api/interfaces/file/interfaces/ifile/)\>
 
-Defined in: [src/index.ts:418](https://github.com/zloishavrin/gigachat-node/blob/137e08cbe11dfa1982a72b2703bae1a7241cf4ea/src/index.ts#L418)
+Defined in: [src/index.ts:374](https://github.com/zloishavrin/gigachat-node/blob/2cd93ba574de8045adaf64a14aee346c2a22e99e/src/index.ts#L374)
 
 Загружает файл в сервис.
 

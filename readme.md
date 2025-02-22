@@ -1,5 +1,5 @@
 <div align="center" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: baseline;">
-<img src="https://img.shields.io/github/stars/zloishavrin/gigachat-node"/>&nbsp;<img src="https://img.shields.io/npm/v/gigachat-node?style=flat-square"/>&nbsp;<img src="https://img.shields.io/npm/dw/gigachat-node?style=flat-square"/>&nbsp;<img src="https://img.shields.io/bundlephobia/minzip/gigachat-node?style=flat-square"/>&nbsp;<img src="https://img.shields.io/badge/dependencies-1-1?style=flat-square"/>
+<img src="https://img.shields.io/github/stars/zloishavrin/gigachat-node"/>&nbsp;<img src="https://img.shields.io/npm/v/gigachat-node?style=flat-square"/>&nbsp;<img src="https://img.shields.io/npm/dw/gigachat-node?style=flat-square"/>&nbsp;<img src="https://img.shields.io/bundlephobia/minzip/gigachat-node?style=flat-square"/>&nbsp;<img src="https://img.shields.io/badge/dependencies-0-0?style=flat-square"/>
 </div>
 
 # GigaChat API Library
@@ -71,14 +71,6 @@ await client.createToken();
 const responce = await client.allModels();
 ```
 
-### Описание модели
-
-Возвращает объект с описанием указанной модели. Аргументом функции следует передать название модели.
-
-```js
-const responce = await client.model('GigaChat:latest');
-```
-
 ### Завершение чата
 
 Возвращает ответ модели с учетом переданных сообщений. Подробнее про параметры запроса можно прочитать в [оффициальной документации](https://developers.sber.ru/docs/ru/gigachat/api/reference#post-chat-completions).
@@ -148,7 +140,7 @@ console.log(responce.choices[0].message.image);
 Возвращает векторные представления соответствующих текстовых запросов. [Подробнее в документации API](https://developers.sber.ru/docs/ru/gigachat/api/reference/rest/post-embeddings).
 
 ```javascript
-const embed = await client.embedding('Название модели', ["Как дела?", "Векторное представлеие? 0_0"]);
+const embed = await client.embedding(["Как дела?", "Векторное представлеие? 0_0"]);
 console.log(embed.data);
 ```
 
@@ -206,7 +198,8 @@ console.log(file);
 |Настроить дженерики для обработки ошибок|☑️|
 |Настроить экспорт ошибки|☑️|
 |Настройка тестов в проекте|☑️|
-|Переписать библиотеку на Fetch API| |
+|Переписать библиотеку на нативный HTTPS вместо Axios|☑️|
+|Настроить минификацию пакета в CI|☑️|
 |Тесты для публичных методов| |
 |Метод для получения баланса| |
 |Метод для удаления файла| |

@@ -1,27 +1,29 @@
 import { randomUUID } from 'crypto';
 import { createWriteStream } from 'fs';
-import { Agent } from 'https';
+import { Agent, RequestOptions } from 'https';
 import { Readable } from 'stream';
-
-import axios, { AxiosResponse, isAxiosError } from 'axios';
 
 import { ICompletionRequest, ICompletionResponse } from '@interfaces/completion';
 import { GigaChatConfig } from '@interfaces/config';
 import { IEmbeddingResponse } from '@interfaces/embedding';
 import { IFile } from '@interfaces/file';
-import { IAllModelResponse, IModelResponse } from '@interfaces/model';
+import { IAllModelResponse } from '@interfaces/model';
 import { ISummarizeResponse } from '@interfaces/summarize';
 import { ITokenResponse } from '@interfaces/token';
 
-import { FormDataBuilder } from './utils/FormDataBuilder';
-import { FormDataFile } from './utils/FormDataFile';
 import { GigaChatError } from './utils/GigaChatError';
+import { HTTPClient } from './utils/HTTPClient';
 
 /**
  * Класс для взаимодействия с API GigaChat.
  * Позволяет выполнять авторизацию, отправлять запросы к модели, загружать файлы и работать с потоками данных.
  */
 class GigaChat {
+  /**
+   * HTTP-Клиент для обработки запросов.
+   */
+  private httpClient: HTTPClient;
+
   /**
    * Токен авторизации для API.
    */
@@ -94,93 +96,37 @@ class GigaChat {
     this.isPersonal = isPersonal;
     this.autoRefreshToken = autoRefreshToken;
     (this.imgOn = imgOn), (this.imgPath = imgPath);
-  }
 
-  /**
-   * Выполняет GET-запрос к API.
-   * @param {string} path Путь запроса.
-   * @returns {Promise<AxiosResponse<any>>} Ответ API.
-   */
-  private async get(path: string): Promise<AxiosResponse<any>> {
-    const responce = await axios.get(`${this.url}${path}`, {
-      headers: {
-        Authorization: `Bearer ${this.authorization}`,
-      },
-      httpsAgent: new Agent({
-        rejectUnauthorized: !this.isIgnoreTSL,
-      }),
-    });
-    return responce;
-  }
-
-  /**
-   * Выполняет POST-запрос к API.
-   * @param {string} path Путь запроса.
-   * @param {object} data Данные запроса.
-   * @param {boolean} [stream=false] Флаг для потокового ответа.
-   * @returns {Promise<AxiosResponse<any>>} Ответ API.
-   */
-  private async post(
-    path: string,
-    data: object,
-    stream: boolean = false,
-  ): Promise<AxiosResponse<any>> {
-    const response = await axios.post(`${this.url}${path}`, data, {
-      headers: {
-        Authorization: `Bearer ${this.authorization}`,
-      },
-      httpsAgent: new Agent({
-        rejectUnauthorized: !this.isIgnoreTSL,
-      }),
-      responseType: stream ? 'stream' : 'json',
-    });
-    return response;
+    this.httpClient = new HTTPClient(this.url, undefined, this.isIgnoreTSL);
   }
 
   /**
    * Получает изображение по его ID.
    * @param {string} imageId Идентификатор изображения.
-   * @returns {Promise<AxiosResponse<any>>} Ответ API с изображением.
+   * @returns {Promise<Readable>} Ответ API с изображением.
    */
-  private async getImage(imageId: string): Promise<AxiosResponse<any>> {
-    const responce = await axios.get(`${this.url}/files/${imageId}/content`, {
+  private async getImage(imageId: string): Promise<Readable> {
+    const url = new URL(`${this.url}/files/${imageId}/content`);
+    const options: RequestOptions = {
+      hostname: url.hostname,
+      path: url.pathname + url.search,
+      port: url.port || 443,
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${this.authorization}`,
         Accept: 'application/jpg',
       },
-      httpsAgent: new Agent({
+      agent: new Agent({
         rejectUnauthorized: !this.isIgnoreTSL,
       }),
-      responseType: 'stream',
-    });
-    return responce;
-  }
+    };
 
-  /**
-   * Загружает файл на сервер
-   * @param {string} pathToFile Путь до файла.
-   * @param {string} purpose Признак использования.
-   * @returns {Promise<AxiosResponse<IFile>>} Ответ API.
-   */
-  private async postFiles(pathToFile: string, purpose: string): Promise<AxiosResponse<IFile>> {
-    const file = new FormDataFile(pathToFile);
-    const formData = new FormDataBuilder();
-
-    formData.appendField('purpose', purpose);
-    formData.appendFile('file', file);
-
-    const response = await axios.post(`${this.url}/files`, formData.getBody(), {
-      headers: {
-        Authorization: `Bearer ${this.authorization}`,
-        Accept: 'application/json',
-        ...formData.getHeaders(),
-      },
-      httpsAgent: new Agent({
-        rejectUnauthorized: !this.isIgnoreTSL,
-      }),
-      responseType: 'json',
-    });
-    return response;
+    try {
+      const response = await this.httpClient.makeRequest(options, '', 0, true);
+      return response;
+    } catch (error) {
+      throw new GigaChatError(`Failed to fetch image: ${error}`, 'IMAGE_FETCH_ERROR');
+    }
   }
 
   /**
@@ -201,35 +147,48 @@ class GigaChat {
   /**
    * Обработка ошибки
    * @param {unknown} error Ошибка.
-   * @param {() => Promise<AxiosResponse<T>>} currentFunction Функция, которую надо выполнить, если проблема была в токенах и она решилась.
+   * @param {() => Promise<T>} currentFunction Функция, которую надо выполнить, если проблема была в токенах и она решилась.
    * @returns {Promise<T>} Результат выполнения currentFunction().
    * @throws {GigaChatError} Специфичная ошибка API
    */
-  private async handlingError<T>(
-    error: unknown,
-    currentFunction: () => Promise<AxiosResponse<T>>,
-  ): Promise<any> {
-    if (isAxiosError(error)) {
-      const status = error.response?.status;
-      const errorData = error.response?.data;
+  private async handlingError<T>(error: unknown, currentFunction: () => Promise<T>): Promise<T> {
+    if (error instanceof Error) {
+      const err = error as NodeJS.ErrnoException;
 
-      if (status === 401) {
-        if (this.autoRefreshToken) {
-          await this.createToken();
-          return currentFunction();
+      // TLS/SSL
+      if (err.code === 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' || err.code === 'CERT_HAS_EXPIRED') {
+        throw new GigaChatError(`SSL/TLS error: ${err.message}`, 'SSL_ERROR');
+      }
+
+      // Network
+      if (err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT' || err.code === 'EPROTO') {
+        throw new GigaChatError(`Network error: ${err.message}`, 'NETWORK_ERROR');
+      }
+
+      // HTTP
+      if ('statusCode' in err) {
+        const statusCode = (err as any).statusCode;
+        const errorData = (err as any).response;
+
+        if (statusCode === 401) {
+          if (this.autoRefreshToken) {
+            await this.createToken();
+            return currentFunction();
+          }
+          throw new GigaChatError('Authorization token expired', 'AUTH_EXPIRED');
         }
-        throw new GigaChatError('Authorization token expired', 'AUTH_EXPIRED');
-      }
 
-      if (status === 400) {
-        throw new GigaChatError(`Validation error: ${errorData?.message}`, 'VALIDATION_ERROR');
-      }
+        if (statusCode === 400) {
+          throw new GigaChatError(`Validation error: ${errorData?.message}`, 'VALIDATION_ERROR');
+        }
 
-      if (typeof status === 'number' && status >= 500) {
-        throw new GigaChatError('Internal server error', 'SERVER_ERROR');
+        if (statusCode >= 500) {
+          throw new GigaChatError('Internal server error', 'SERVER_ERROR');
+        }
       }
     }
 
+    // Обработка неизвестных ошибок
     throw new GigaChatError(`Unknown error: ${error}`, 'UNKNOWN_ERROR');
   }
 
@@ -248,24 +207,38 @@ class GigaChat {
         data.append('scope', this.scopeForCorporation);
       }
 
-      const responce = await axios.post(this.urlAuth, data, {
+      const url = new URL(this.urlAuth);
+      const options: RequestOptions = {
+        hostname: url.hostname,
+        path: url.pathname + url.search,
+        port: url.port || 443,
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${this.clientSecretKey}`,
           RqUID: requestUID,
           'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Length': Buffer.byteLength(data.toString()),
         },
-        httpsAgent: new Agent({
+        agent: new Agent({
           rejectUnauthorized: !this.isIgnoreTSL,
         }),
-        maxRedirects: 5,
-      });
-      this.authorization = responce.data.access_token;
-      return responce.data;
+      };
+      const response = await this.httpClient.makeRequest(options, data.toString());
+      this.authorization = response.access_token;
+      this.httpClient.setAuthorization(response.access_token);
+      return response;
     } catch (error) {
-      if (isAxiosError(error)) {
-        throw new GigaChatError(`Unknown error (create token): ${error.message}`, 'UNKNOWN_ERROR');
+      const err = error as NodeJS.ErrnoException;
+
+      if (err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT' || err.code === 'EPROTO') {
+        throw new GigaChatError(`HTTPS error (create token): ${err.message}`, 'HTTPS_ERROR');
       }
-      throw new Error(`Unknown error (create token): ${error}`);
+
+      if (err.code === 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' || err.code === 'CERT_HAS_EXPIRED') {
+        throw new GigaChatError(`SSL/TLS error (create token): ${err.message}`, 'SSL_ERROR');
+      }
+
+      throw new GigaChatError(`Unknown error (create token): ${err.message}`, 'UNKNOWN_ERROR');
     }
   }
 
@@ -277,8 +250,8 @@ class GigaChat {
   public async completion(data: ICompletionRequest): Promise<ICompletionResponse> {
     const path = '/chat/completions';
     try {
-      const response = await this.post(path, data);
-      const completionContent = response.data.choices[0].message.content;
+      const response = await this.httpClient.post(path, data);
+      const completionContent = response.choices[0].message.content;
       if (this.imgOn) {
         const imageId = this.extractImageSource(completionContent);
         if (imageId) {
@@ -291,34 +264,34 @@ class GigaChat {
             const imageResponse = await this.getImage(imageId);
 
             await new Promise<void>((resolve, reject) => {
-              imageResponse.data.on('data', (chunk: any) => transformStream.push(chunk));
-              imageResponse.data.on('end', () => {
+              imageResponse.on('data', (chunk: any) => transformStream.push(chunk));
+              imageResponse.on('end', () => {
                 transformStream.push(null);
                 transformStream.pipe(imageStream);
                 transformStream.on('end', () => {
                   imageStream.end();
                   imageStream.on('finish', () => {
-                    response.data.choices[0].message['image'] = imagePath;
+                    response.choices[0].message['image'] = imagePath;
                     resolve();
                   });
                 });
               });
-              imageResponse.data.on('error', reject);
+              imageResponse.on('error', reject);
             });
 
-            return response.data;
+            return response;
           } catch (error) {
             throw new Error(`Ошибка при сохранении файла: ${error}`);
           }
         } else {
-          return response.data;
+          return response;
         }
       } else {
-        return response.data;
+        return response;
       }
     } catch (error) {
       return await this.handlingError<ICompletionResponse>(error, async () => {
-        return await this.post(path, data);
+        return await this.httpClient.post(path, data);
       });
     }
   }
@@ -332,11 +305,11 @@ class GigaChat {
     const path = '/chat/completions';
     const streamData = { ...data, stream: true };
     try {
-      const response = await this.post(path, streamData, true);
-      return response.data;
+      const response = await this.httpClient.post(path, streamData, true);
+      return response;
     } catch (error) {
       return await this.handlingError<Readable>(error, async () => {
-        return await this.post(path, streamData, true);
+        return await this.httpClient.post(path, streamData, true);
       });
     }
   }
@@ -348,28 +321,11 @@ class GigaChat {
   public async allModels(): Promise<IAllModelResponse> {
     const path = '/models';
     try {
-      const responce = await this.get(path);
+      const responce = await this.httpClient.get(path);
       return responce.data;
     } catch (error) {
       return await this.handlingError<IAllModelResponse>(error, async () => {
-        return await this.get(path);
-      });
-    }
-  }
-
-  /**
-   * Получает информацию о конкретной модели.
-   * @param {string} modelName - Название модели.
-   * @returns {Promise<IModelResponse>} Ответ сервера с данными модели.
-   */
-  public async model(modelName: string): Promise<IModelResponse> {
-    const path = `/models/${modelName}`;
-    try {
-      const responce = await this.get(path);
-      return responce.data;
-    } catch (error) {
-      return await this.handlingError<IModelResponse>(error, async () => {
-        return await this.get(path);
+        return await this.httpClient.get(path);
       });
     }
   }
@@ -382,11 +338,11 @@ class GigaChat {
   public async embedding(input: string[]): Promise<IEmbeddingResponse> {
     const path = '/embeddings';
     try {
-      const responce = await this.post(path, { model: 'Embeddings', input: input });
+      const responce = await this.httpClient.post(path, { model: 'Embeddings', input: input });
       return responce.data;
     } catch (error) {
       return await this.handlingError<IEmbeddingResponse>(error, async () => {
-        return await this.post(path, { input: input });
+        return await this.httpClient.post(path, { input: input });
       });
     }
   }
@@ -400,11 +356,11 @@ class GigaChat {
   public async summarize(model: string, input: string[]): Promise<ISummarizeResponse[]> {
     const path = '/tokens/count';
     try {
-      const responce = await this.post(path, { model, input });
-      return responce.data;
+      const responce = await this.httpClient.post(path, { model, input });
+      return responce;
     } catch (error) {
       return await this.handlingError<ISummarizeResponse[]>(error, async () => {
-        return await this.post(path, { model, input });
+        return await this.httpClient.post(path, { model, input });
       });
     }
   }
@@ -417,11 +373,11 @@ class GigaChat {
    */
   public async uploadFile(pathToFile: string, purpose: string = 'general'): Promise<IFile> {
     try {
-      const response = await this.postFiles(pathToFile, purpose);
-      return response.data;
+      const response = await this.httpClient.postFiles(pathToFile, purpose);
+      return response;
     } catch (error) {
       return await this.handlingError<IFile>(error, async () => {
-        return await this.postFiles(pathToFile, purpose);
+        return await this.httpClient.postFiles(pathToFile, purpose);
       });
     }
   }

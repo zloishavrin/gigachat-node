@@ -34,6 +34,9 @@ jobs:
       - name: Copy README to dist
         run: cp readme.md dist/README.md
 
+      - name: Minify JS/TS files in dist
+        run: npm run minify
+
       - name: Publish to npm
         run: |
           cd dist
