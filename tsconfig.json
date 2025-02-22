@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
+    "types": ["node", "jest"],
     "module": "commonjs",
     "declaration": true,
     "outDir": "dist",
@@ -11,6 +12,6 @@
       "@interfaces/*": ["src/interfaces/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "__tests__"],
   "exclude": ["node_modules"]
 }

@@ -2,10 +2,13 @@
 node_modules
 package-lock.json
 
+# secrets
+.env
+
 # build and test output
 /dist
-test
-example
+/coverage
+/example
 .astro
 
 # logs
