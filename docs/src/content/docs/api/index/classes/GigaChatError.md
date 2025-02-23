@@ -5,7 +5,7 @@ prev: false
 title: "GigaChatError"
 ---
 
-Defined in: [src/utils/GigaChatError.ts:17](https://github.com/zloishavrin/gigachat-node/blob/7491b5f2c8bdeb790f9ee24140ed373709f8275c/src/utils/GigaChatError.ts#L17)
+Defined in: [src/utils/GigaChatError.ts:17](https://github.com/zloishavrin/gigachat-node/blob/73265cae60cba8596986acf3536cf528c60d2cf0/src/utils/GigaChatError.ts#L17)
 
 Класс ошибки API GigaChat с дополнительной информацией
 
@@ -31,7 +31,7 @@ try {
 
 > **new GigaChatError**(`message`, `code`): [`GigaChatError`](/gigachat-node/api/index/classes/gigachaterror/)
 
-Defined in: [src/utils/GigaChatError.ts:30](https://github.com/zloishavrin/gigachat-node/blob/7491b5f2c8bdeb790f9ee24140ed373709f8275c/src/utils/GigaChatError.ts#L30)
+Defined in: [src/utils/GigaChatError.ts:30](https://github.com/zloishavrin/gigachat-node/blob/73265cae60cba8596986acf3536cf528c60d2cf0/src/utils/GigaChatError.ts#L30)
 
 Создает экземпляр ошибки GigaChat
 
@@ -63,7 +63,7 @@ Defined in: [src/utils/GigaChatError.ts:30](https://github.com/zloishavrin/gigac
 
 > `readonly` **code**: `string`
 
-Defined in: [src/utils/GigaChatError.ts:22](https://github.com/zloishavrin/gigachat-node/blob/7491b5f2c8bdeb790f9ee24140ed373709f8275c/src/utils/GigaChatError.ts#L22)
+Defined in: [src/utils/GigaChatError.ts:22](https://github.com/zloishavrin/gigachat-node/blob/73265cae60cba8596986acf3536cf528c60d2cf0/src/utils/GigaChatError.ts#L22)
 
 Уникальный код ошибки для идентификации типа проблемы
 
