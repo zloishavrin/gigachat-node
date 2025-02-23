@@ -72,7 +72,15 @@ export class HTTPClient {
           return;
         }
 
-        if (stream) {
+        if (options.headers && options.headers.Accept === 'application/jpg') {
+          const chunks: Buffer[] = [];
+          result.on('data', (chunk) => chunks.push(chunk));
+          result.on('end', () => {
+            const buffer = Buffer.concat(chunks);
+            resolve(buffer);
+          });
+          return;
+        } else if (stream) {
           const transformStream = new Readable({
             read() {},
           });
@@ -118,9 +126,10 @@ export class HTTPClient {
   /**
    * Выполняет GET-запрос к API.
    * @param {string} path Путь запроса.
+   * @param {boolean} isImage Флаг для получения изображения.
    * @returns {Promise<any>} Ответ API.
    */
-  public async get(path: string): Promise<any> {
+  public async get(path: string, isImage: boolean = false): Promise<any> {
     const url = new URL(`${this.baseUrl}${path}`);
     const options: RequestOptions = {
       hostname: url.hostname,
@@ -129,18 +138,15 @@ export class HTTPClient {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.authorization}`,
+        Accept: isImage ? 'application/jpg' : 'application/json',
       },
       agent: new Agent({
         rejectUnauthorized: !this.isIgnoreTSL,
       }),
     };
 
-    try {
-      const response = await this.makeRequest(options, '');
-      return response;
-    } catch (error) {
-      throw new GigaChatError(`HTTP GET request failed: ${error}`, 'HTTP_ERROR');
-    }
+    const response = await this.makeRequest(options, '');
+    return response;
   }
 
   /**
@@ -169,12 +175,8 @@ export class HTTPClient {
       }),
     };
 
-    try {
-      const response = await this.makeRequest(options, dataString, 0, stream);
-      return response;
-    } catch (error) {
-      throw new GigaChatError(`HTTP POST request failed: ${error}`, 'HTTP_ERROR');
-    }
+    const response = await this.makeRequest(options, dataString, 0, stream);
+    return response;
   }
 
   /**

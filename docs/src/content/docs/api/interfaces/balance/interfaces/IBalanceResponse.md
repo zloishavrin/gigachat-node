@@ -5,7 +5,7 @@ prev: false
 title: "IBalanceResponse"
 ---
 
-Defined in: [src/interfaces/balance.ts:19](https://github.com/zloishavrin/gigachat-node/blob/a69ec788472547a03123bbdeeaac3f6751954bc6/src/interfaces/balance.ts#L19)
+Defined in: [src/interfaces/balance.ts:19](https://github.com/zloishavrin/gigachat-node/blob/7491b5f2c8bdeb790f9ee24140ed373709f8275c/src/interfaces/balance.ts#L19)
 
 Интерфейс ответа на запрос баланса токенов.
 
@@ -15,6 +15,6 @@ Defined in: [src/interfaces/balance.ts:19](https://github.com/zloishavrin/gigach
 
 > **balance**: [`IBalance`](/gigachat-node/api/interfaces/balance/interfaces/ibalance/)[]
 
-Defined in: [src/interfaces/balance.ts:23](https://github.com/zloishavrin/gigachat-node/blob/a69ec788472547a03123bbdeeaac3f6751954bc6/src/interfaces/balance.ts#L23)
+Defined in: [src/interfaces/balance.ts:23](https://github.com/zloishavrin/gigachat-node/blob/7491b5f2c8bdeb790f9ee24140ed373709f8275c/src/interfaces/balance.ts#L23)
 
 Массив объектов с информацией о балансе токенов по каждой модели.

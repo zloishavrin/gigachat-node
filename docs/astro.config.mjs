@@ -38,14 +38,17 @@ export default defineConfig({
 						{ label: 'Начать работу', slug: 'guides/readme' },
 						{ label: 'Генерация изображений', slug: 'guides/image' },
 						{ label: 'GigaChat Vision', slug: 'guides/vision' },
+						{ label: 'Сертификат безопасности', slug: 'guides/security' },
 						{ label: 'Отключение цензуры', slug: 'guides/censored' }
 					],
 				},
 				{
-					label: 'Примеры использоваения',
+					label: 'Примеры использования',
 					items: [
 						{ label: 'Телеграм-бот', slug: 'examples/tgbot'},
-						{ label: 'REST', slug: 'examples/rest' }
+						{ label: 'Массовая генерация изображений', slug: 'examples/images' },
+						{ label: 'REST', slug: 'examples/rest' },
+						{ label: 'Телеграм-бот с генерацией изображений', slug: 'examples/tgbot-images' }
 					]
 				},
 				typeDocSidebarGroup,

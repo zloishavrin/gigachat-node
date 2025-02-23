@@ -121,41 +121,51 @@ class GigaChat {
    * @throws {GigaChatError} Специфичная ошибка API
    */
   private async handlingError<T>(error: unknown, currentFunction: () => Promise<T>): Promise<T> {
-    if (error instanceof Error) {
-      const err = error as NodeJS.ErrnoException;
+    if (error)
+      if (error instanceof Error) {
+        const err = error as NodeJS.ErrnoException;
 
-      // TLS/SSL
-      if (err.code === 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' || err.code === 'CERT_HAS_EXPIRED') {
-        throw new GigaChatError(`SSL/TLS error: ${err.message}`, 'SSL_ERROR');
-      }
+        // TLS/SSL
+        if (err.code === 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' || err.code === 'CERT_HAS_EXPIRED') {
+          throw new GigaChatError(`SSL/TLS error: ${err.message}`, 'SSL_ERROR');
+        }
 
-      // Network
-      if (err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT' || err.code === 'EPROTO') {
-        throw new GigaChatError(`Network error: ${err.message}`, 'NETWORK_ERROR');
-      }
+        // Network
+        if (err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT' || err.code === 'EPROTO') {
+          throw new GigaChatError(`Network error: ${err.message}`, 'NETWORK_ERROR');
+        }
 
-      // HTTP
-      if ('statusCode' in err) {
-        const statusCode = (err as any).statusCode;
-        const errorData = (err as any).response;
+        // HTTP
+        if (/^HTTP Error: \d{3} .+$/.test(err.message)) {
+          const match = err.message.match(/^HTTP Error: (\d{3}) (.+)$/);
 
-        if (statusCode === 401) {
-          if (this.autoRefreshToken) {
-            await this.createToken();
-            return currentFunction();
+          if (match) {
+            const errorData = {
+              statusCode: Number(match[1]),
+              statusMessage: match[2],
+            };
+
+            if (errorData.statusCode === 401) {
+              if (this.autoRefreshToken) {
+                await this.createToken();
+                return currentFunction();
+              }
+              throw new GigaChatError('Authorization token expired', 'AUTH_EXPIRED');
+            }
+
+            if (errorData.statusCode === 400) {
+              throw new GigaChatError(
+                `Validation error: ${errorData?.statusMessage}`,
+                'VALIDATION_ERROR',
+              );
+            }
+
+            if (errorData.statusCode >= 500) {
+              throw new GigaChatError('Internal server error', 'SERVER_ERROR');
+            }
           }
-          throw new GigaChatError('Authorization token expired', 'AUTH_EXPIRED');
-        }
-
-        if (statusCode === 400) {
-          throw new GigaChatError(`Validation error: ${errorData?.message}`, 'VALIDATION_ERROR');
-        }
-
-        if (statusCode >= 500) {
-          throw new GigaChatError('Internal server error', 'SERVER_ERROR');
         }
       }
-    }
 
     // Обработка неизвестных ошибок
     throw new GigaChatError(`Unknown error: ${error}`, 'UNKNOWN_ERROR');
@@ -395,7 +405,7 @@ class GigaChat {
   public async downloadFile(fileId: string): Promise<any> {
     const path = `/files/${fileId}/content`;
     try {
-      const response = await this.httpClient.get(path);
+      const response = await this.httpClient.get(path, true);
       return response;
     } catch (error) {
       return await this.handlingError<any>(error, async () => {
